@@ -1,0 +1,234 @@
+<@cms_site sitecode="cpc">
+<!-- saved from url=(0067)http://www.zgjx.gov.cn/index.php?m=content&c=index&a=lists&catid=19 -->
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>${tag_site.siteName}</title>
+    <meta name="keyword" content="华南农业大学,华农图书馆,党总支">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="index_files/scau50.jpg">
+    <!-- Bootstrap -->
+    <link href="template/cms/cpc/html/menu_files/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="menu_files/justifiedGallery.css" type="text/css" media="all">
+    <link href="template/cms/cpc/html/menu_files/demo.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+    <div class="row section sTop">
+        <div class="col-md-12" ><img class="img-responsive" src="${tag_site.siteLogo}"></div>
+    </div>
+    <div class="clear"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <nav class="subMenu smint not-fxd" id="main-menu">
+                <div class="inner">
+                    <a href="cmsController.do?goPage&page=index&siteCode=cpc" class="subNavBtn extLink col-md-1">首页</a>
+                    <@cms_menu_list menuLevel="cms_level_1" sitecode="cpc" menuStatus="Y">
+                    <#list tag_menu_list as menu>
+
+                        <a
+                        <#if menu.type=="04">href="${menu.url}"
+                            <#else>href="cmsController.do?goPage&page=menu&siteCode=cpc&menuid=${menu.id}"
+                        </#if>
+                        class="subNavBtn extLink col-md-1">${menu.name}</a>
+                    </#list>
+                </@cms_menu_list>
+        </div>
+        </nav>
+    </div>
+</div>
+<section class="row public-position" id="publicPosition">
+
+    <div class="col-md-12 pubpos-nav">
+        <@cms_menu sitecode="${Data.sitecode}" menuid="${Data.menuid}" >
+        <a href="cmsController.do?goPage&page=index&siteCode=cpc" class="CurrChnlCls">首页</a>
+        <#if tag_menu.menuLevel=="cms_level_2">
+            <@cms_menu_list sitecode="${Data.sitecode}" menuid="${tag_menu.parent.id}" >
+            <#list tag_menu_list as menu>
+                ><a href="cmsController.do?goPage&page=menu&siteCode=cpc&menuid=${menu.id}">${menu.name}</a>
+
+            </#list>
+            >${tag_menu.name}
+        </@cms_menu_list>
+
+        <#else>
+            >${tag_menu.name}
+            </#if>
+        </@cms_menu>
+    </div>
+
+</section>
+
+
+<div class="row" style="margin-bottom:10px;">
+
+    <div class="col-sm-3">
+        <div class="zwgk_ws_zjzf">
+            <@cms_menu menuid="${Data.parentid}">
+            <h2><a href="cmsController.do?goPage&page=menu&siteCode=cpc&menuid=${tag_menu.id}">${tag_menu.name} </a></h2>
+            <!-- cms_menu_list导航栏list，参数：menuLevel（栏目级数）、sitecode（站点）menuStatus(是否显示) parenid(夫级id)-->
+            <@cms_menu_list parentid="${tag_menu.id}">
+            <#if cms_menu_list?exists>
+                <#list tag_menu_list as menu>
+                    <a
+                    <#if menu.id==Data.menuid>style="color: red;"</#if>
+                    href="cmsController.do?goPage&page=menu&siteCode=cpc&menuid=${menu.id}"> ${menu.name}</a>
+                </#list>
+            </#if>
+        </@cms_menu_list>
+    </@cms_menu>
+</div>
+
+
+</div>
+
+<div class="col-sm-9">
+    <div class="zwgk_ws_lxyb">
+        <div class="zwgk_ws_lbym1">
+
+            <ul>
+                <!-- 判断该栏目是否有栏目图片-->
+                <#if (tag_menu.imageName?exists)&&(tag_menu.menuLevel=="cms_level_1")>
+                    <img src="${tag_menu.imageHref}" style="width: 100%;"/>
+                </#if>
+                <!-- 判断该栏目是否是单文章-->
+                <#if (tag_menu.type=="02")>
+                    <!-- 判断该栏目是否是多文章 如果是，输出单文章  p="1" rows="1"(输出一篇文章) type="N"（不包括子辈） -->
+                    <@cms_article_list menuid="${Data.menuid}" p="1" rows="1" type="N">
+                    <#list tag_article_list as article>
+                        <@cms_article articleid="${article.id}">
+
+                        <div style="text-align: center">
+                            <h3>${tag_article.title}</h3>
+                        </div>
+                        <div align="center">
+                            <img src="${tag_article.imageHref!}" align="center"/>
+                        </div>
+                        <div>
+                            ${tag_article.content}
+                        </div>
+                    </@cms_article>
+                    </#list>
+
+
+                </@cms_article_list>
+                <!-- 判断该栏目是否是多文章 如果是，输出文章列表-->
+                <#elseif (tag_menu.type=="01")>
+
+                    <!-- 输出该栏目的多文章列表-->
+                    <@cms_article_list sitecode="${Data.sitecode}" menuid="${Data.menuid}" rows="10" type="Y" p="1">
+                    <#list tag_article_list as article>
+                        <li><span>${article.createDate?string("yyyy-MM-dd")}</span><a
+                                href="cmsController.do?goPage&page=article&siteCode=cpc&menuid=${article.columnId}&articleid=${article.id}"
+                                style="" title="${article.title}">${article.title}</a></li>
+
+                    </#list>
+
+                    <div class="clear"></div>
+
+                    <div class="m-page">
+                        ${page.pagehtml}
+                    </div>
+
+                    <!-- 结束标签-->
+                </@cms_article_list>
+
+                <!-- 判断该栏目是否是相册 如果是，输出相册列表-->
+                <#elseif (tag_menu.type=="03")>
+                    <table class="table table-striped" style="height: 400px">
+
+                        <tbody>
+                        <@cms_article_list sitecode="${Data.sitecode}" menuid="${Data.menuid}" rows="8" type="Y" p="${Data.p}">
+                        <tr>
+                            <#list tag_article_list as article>
+                                <td align="center" height="50"><a
+                                        href="cmsController.do?goPage&page=article&siteCode=cpc&menuid=${article.columnId}&articleid=${article.id}">
+                                    <img src="${article.imageHref}" style="width: 70%;"
+                                         onMouseOver="toolTip('<img src=${article.imageHref} width=500 >')"
+                                         onMouseOut="toolTip()"/><br>${article.title}</a></td>
+                                <#if (article_index+1)%4 ==0>
+                        </tr>
+                        <tr>
+                            </#if>
+                            <#if (article_index+1)%8 ==0>
+                        </tr>
+                        <tr>
+                            </#if>
+
+                            </#list>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div class="clear"></div>
+
+                    <div class="m-page">
+                        ${page.pagehtml}
+                    </div>
+                    <!-- 结束标签-->
+                </@cms_article_list>
+                </#if>
+
+
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="body_foot">
+
+    <div class="copy">
+
+
+        <div class="copy_txt">
+
+            <p><i class="i_footL">版权所有：华南农业大学图书馆　2016(C)</i></p>
+
+        </div>
+
+        <@cms_log ip="${Data.ip}" logpage="栏目：${tag_menu.name}" logtype="web" sitecode="${Data.sitecode}" >
+
+    </@cms_log>
+
+</div>
+
+</div>
+
+
+<!-- jQuery  -->
+
+<script src="template/cms/cpc/html/menu_files/jquery.min.js"></script>
+<!-- Bootstrap -->
+
+<script src="template/cms/cpc/html/menu_files/bootstrap.min.js"></script>
+<script src="template/cms/portal/js/jquery.pin.min.js"></script>
+<script src="template/cms/portal/js/ToolTip.js"></script>
+<!--container end-->
+
+
+<script src="index_files/jquery.smint.js" type="text/javascript"></script>
+<script type="text/javascript">$(document).ready(function () {
+    $('.subMenu').smint({'scrollSpeed': 1000});
+});</script>
+
+<script type="text/javascript">
+    $("#sidebarPin").pin({containerSelector: "#maincontent", minWidth: 970});
+</script>
+<!-- 自动置顶的顶部导航菜单 -->
+</body>
+</html>
+</@cms_site>

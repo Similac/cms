@@ -1,0 +1,194 @@
+/*自定义样式*/
+
+input[type="text"],input[type="password"], select, textarea {
+    width: 94%;
+    border: 1px solid #dee0e5;
+    padding: 8px 10px;
+    background: #fafbfd;
+    color: #95999e;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+}
+
+/* Buttons */
+
+a.button,
+button{
+    background:#e2eaf2;
+    border:none;
+    color:#274472;
+    text-transform:uppercase;
+    display:inline-block;
+    padding:6px 20px;
+    font-size:13px;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-top:1px solid #f3f7fa;
+    border-bottom:1px solid #bfc8d7;
+    transition:background 0.3s, color 0.2s, border 0.3s;
+    -webkit-transition:background 0.3s, color 0.2s, border 0.3s;
+    -moz-transition:background 0.3s, color 0.2s, border 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.button.big,
+button.big{
+    padding:10px 20px;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+}
+
+button.medium,
+a.button.medium{
+    padding:8px 20px;
+    height:39px;
+}
+
+a.button.donate,
+button.donate{
+    background:#a82512;
+    border-top-color:#be2e17;
+    border-bottom-color:#911f0f;
+    color:#fff;
+    text-transform:none;
+}
+
+a.button.donate.button-arrow:after,
+button.donate.button-arrow:after{
+    color:#d6aaa7;
+}
+
+a.button.donate.button-arrow:hover:after,
+button.donate.button-arrow:hover:after{
+    color:#fff;
+}
+
+a.button.donate.big,
+button.donate.big{
+    text-transform:uppercase;
+}
+
+a.button.donate:hover,
+button.donate:hover{
+    background:#d3311a;
+    border-top-color:#de3d21;
+    border-bottom-color:#b02713;
+}
+
+a.button + a.button,
+button+button{
+    margin-left:5px;
+}
+
+a.button.transparent,
+button.transparent{
+    padding:0;
+    font-size:13px;
+    background:none;
+    color:#274472;
+    border:none;
+}
+
+a.button.transparent:hover,
+button.transparent:hover{
+    background:none;
+    color:#63b2f5;
+}
+
+a.button.transparent:hover:after,
+button.transparent:hover:after{
+    color:#63b2f5;
+}
+
+a.button:after,
+a.button:before,
+button:before,
+button:after{
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    margin-left: .2em;
+    color:#a8abae;
+    font-size:13px;
+}
+
+a.button.button-arrow:after,
+button.button-arrow:after{
+    margin-left:5px;
+    content: '\e891';
+    color:#808ca4;
+    margin-right:-5px;
+}
+
+a.button.button-arrow-before:before,
+button.button-arrow-before:before{
+    margin-left:-5px;
+    content: '\e890';
+    color:#808ca4;
+    margin-right:5px;
+}
+
+a.button:hover,
+button:hover,
+a.button.active-button,
+button.active-button{
+    background:#63b2f5;
+    color:#fff;
+    border-top-color:#7cc5f8;
+    border-bottom-color:#579dd9;
+    text-decoration:none;
+}
+
+a.button:hover:after,
+button:hover:after,
+a.button:hover:before,
+button:hover:before,
+a.button.active-button:after,
+button.active-button:after{
+    color:#fff;
+}
+
+a.button.blue,
+button.blue{
+    background:#63b2f5;
+    border-top-color:#63b2f5;
+    border-bottom-color:#63b2f5;
+    color:#fff;
+    text-transform:none;
+}
+
+a.button.blue.button-arrow:after,
+button.blue.button-arrow:after{
+    color:#fff;
+}
+
+a.button.blue.button-arrow:hover:after,
+button.blue.button-arrow:hover:after{
+    color:#fff;
+}
+
+a.button.blue.big,
+button.blue.big{
+    text-transform:uppercase;
+}
+
+a.button.blue:hover,
+button.blue:hover{
+    background:#274472;
+    border-top-color:#274472;
+    border-bottom-color:#274472;
+}
+

@@ -1,0 +1,59 @@
+<#include "header.html">
+    <section id="content">
+
+        <!-- Page Heading -->
+        <section class="section page-heading animate-onscroll">
+
+            <h1>欢迎登录我的图书馆</h1>
+
+        </section>
+        <!-- Page Heading -->
+
+
+
+        <!-- Section -->
+        <section class="section full-width-bg gray-bg">
+
+            <div class="row">
+
+                <div class="col-lg-9 col-md-9 col-sm-8 col-lg-push-3 col-md-push-3 col-sm-push-4">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                        <dl class="dl-horizontal dl-2">
+                            <dt>读者证件号</dt>
+                            <dd>${(Data.user.personnelno)!}</dd>
+                            <dt>姓名</dt>
+                            <dd>${(Data.user.accname)!}</dd>
+                            <dt>性别</dt>
+                            <dd>
+                                <#if Data.user.sex=='M'>男</#if>
+                                <#if Data.user.sex=='F'>女</#if>
+                            </dd>
+                            <dt>部门</dt>
+                            <dd>${(Data.user.dept)!} </dd>
+                            <dt>手机</dt>
+                            <dd>${(Data.user.phone)!}</dd>
+                            <dt>Email</dt>
+                            <dd>${(Data.user.email)!}</dd>
+                        </dl>
+</div>
+
+                    </div>
+
+                </div>
+
+
+
+                <#include "sidebar-user.html">
+
+
+
+
+            </div>
+
+        </section>
+        <!-- /Section -->
+
+    </section>
+    <#include "footer.html">

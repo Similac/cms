@@ -1,0 +1,33 @@
+<div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+    <div class="sidebar-box white" style="opacity: 1;">
+        <@cms_menu menuid="${Data.parentid}">
+        <h3>
+            <i class="icons icon-folder-open"></i>
+            <a href="cmsController.do?goPage&page=menu&siteCode=portal2&menuid=${tag_menu.id}">
+                <span style="text-transform: capitalize;">${tag_menu.name} </span>
+            </a>
+        </h3>
+        <@cms_menu_list parentid="${tag_menu.id}">
+        <#if cms_menu_list?exists>
+            <ul class="popular-news">
+
+                <#list tag_menu_list as menu>
+                    <li style="width: 100%;">
+                        <div class="post-content">
+                            <h6>
+                                <a <#if menu.id==Data.menuid>style="color: red;"</#if> href="cmsController.do?goPage&page=menu&siteCode=portal2&menuid=${menu.id}">
+                                    <i class="icons icon-right-open"></i>
+                                    ${menu.name}
+                                </a>
+                            </h6>
+                        </div>
+                    </li>
+                </#list>
+            </ul>
+        </#if>
+    </@cms_menu_list>
+</@cms_menu>
+
+</div>
+</div>
+

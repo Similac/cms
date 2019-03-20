@@ -1,0 +1,49 @@
+
+<#include "header.html">
+    <section class="section full-width-bg gray-bg" style="opacity: 1;padding-top:5px;padding-bottom: 0;">
+        <p class="breadcrumb">
+            <a href="cmsController.do?goPage&page=index&siteCode=portal2">首页</a> /
+            <a href="esourceController.do?db&page=db&siteCode=portal2">电子资源</a>
+        </p>
+
+    </section>
+    <#include "dbsearchbar.html">
+        <section class="section full-width-bg gray-bg" style="padding-top: 5px;">
+            <div class="row">
+                <div class="col-xs-12  animate-onscroll">
+                    <div class="panel panel-primary">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list"></i> 检索结果 ( <#if (Data.dbsubject>0) >${Data.count}  <#else> ${Data.count} </#if>)
+                        </h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>名称</th>
+                                    <th>资源类型</th>
+                                    <th>点击次数</th>
+                                </tr>
+                                <#list Data.dblist as e>
+                                    <tr>
+                                        <td width="60%">
+                                            <a href="esourceController.do?db&page=dbdetail&siteCode=portal2&dbid=${e.id?c}">${e.cnname}</a>
+                                        </td>
+                                        <@db_detail restypecode="${e.restypecode}">
+                                        <td> ${tag_dbrestype.restypename}</td>
+                                    </@db_detail>
+                                    <td>${e.hits}</td>
+                                    </tr>
+                                </#list>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <ul class="pager">
+                                ${Data.pagehtml}
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--container end-->
+        <#include "footer.html">

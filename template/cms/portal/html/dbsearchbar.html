@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="search-box-12">
+        <!--charList start-->
+        <div class="col-xs-12">
+        <div class="bs-example bs-example-tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li <#if (Data.dbsubject==0 && Data.dbrestype==0) > class="active" <#else> class="" </#if> ><a href="#dbChar" role="tab" data-toggle="tab" style="color:Black">首字母排列</a></li>
+                            <li <#if (Data.dbsubject>0) > class="active" <#else> class=""</#if> ><a href="#dbSubject" role="tab" data-toggle="tab" style="color:Black">学科排列</a></li>
+                            <li <#if (Data.dbrestype>0) > class="active" <#else> class=""</#if> ><a href="#dbRestype" role="tab" data-toggle="tab" style="color:Black">资源类型排列</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content container" style="padding: 10px 0px;">
+                            <div  <#if (Data.dbsubject==0 && Data.dbrestype==0) >  class="tab-pane fade active in container" <#else> class="tab-pane fade container" </#if> id="dbChar">
+                                <ul class="list-inline char-list text-center">
+                                  <li><a href="esourceController.do?db&page=dblist&siteCode=portal">所有</a></li>
+                                   <#list Data.charList as char>
+                                    <#if char==Data.dbChar>
+                                    <li class="current">${char}</li>
+                                   <#else>
+                                   <li>
+                            <a href="esourceController.do?db&page=dblist&siteCode=portal&dbChar=${char}">${char}</a>
+                             </li>
+                               </#if>
+                               </#list>
+                                </ul>
+                            </div>
+                            <div   <#if (Data.dbsubject>0) >  class="tab-pane fade active in container" <#else> class="tab-pane fade container" </#if> id="dbSubject">
+                                <ul class="list-inline Subject-list text-center">
+                                  <#list Data.SubjectList as s>
+                                    <#if s.id==Data.dbsubject>
+                                    <li class="current" style="color:Red">${s.name}</li>
+                                   <#else>
+                                     <li>
+                                       <a href="esourceController.do?db&page=dblist&siteCode=portal&dbsubject=${s.id}">${s.name}</a>
+                                     </li>
+                                   </#if>
+                                  </#list>
+                                </ul>
+                            </div>
+                            <div <#if (Data.dbrestype>0) >  class="tab-pane fade active in container" <#else> class="tab-pane fade container" </#if> id="dbRestype">
+                                <ul class="list-inline dbRestype-list text-center">
+                                  <#list Data.dbRestypeList as e>
+                                   <#if e.id==Data.dbrestype>
+                                    <li class="current" style="color:Red">${e.restypename}</li>
+                                   <#else>
+                                     <li>
+                                       <a href="esourceController.do?db&page=dblist&siteCode=portal&dbrestype=${e.id}">${e.restypename}</a>
+                                     </li>
+                                    </#if>
+                                  </#list>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+            
+        </div>
+        <!--charList end-->
+        <!--search start-->
+        <div class="col-xs-12">
+            <form action="esourceController.do?db" class="form-inline text-center" method="post" accept-charset="UTF-8">
+                <div class="form-group col-sm-6" style="float: none;">
+                    <label class="sr-only" for="keyword">Search</label>
+
+
+                    <input type="text" class="form-control" name="keyword" id="keyword"
+                           placeholder="输入电子资源名称关键词进行检索" value="${keyword!}"/>
+                </div>
+                <button type="submit" class="btn btn-mydefault">检索</button>
+                <input type="hidden" name="page" value="dblist"/>
+                <input type="hidden" name="siteCode" value="portal"/>
+
+            </form>
+        </div>
+        <!--search end-->
+    </div>
+</div>

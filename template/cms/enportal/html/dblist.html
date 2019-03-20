@@ -1,0 +1,75 @@
+
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                        <li><a href="cmsController.do?goPage&page=index&siteCode=enportal">Home</a></li>
+                        <li class="active">
+                            E-resource
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <#include "dbsearchbar.html">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <i class="glyphicon glyphicon-list"></i> Search results ( <#if (Data.dbsubject>0) >${Data.count}  <#else> ${Data.count} </#if>)
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Acquisition</th>
+                                        <th>Resource Type</th>
+                                        <th>Hits</th>
+                                    </tr>
+                                    <#list Data.dblist as e>
+                                        <tr>
+                                            <td width="50%">
+                                                <a href="esourceController.do?db&page=dbdetail&siteCode=enportal&dbid=${e.id?c}">${e.cnname}</a>
+                                            </td>
+                                            <td>
+                                                <#if e.orderstate =="order_purchase">
+                                                Purchase
+                                                <#else>Trial</#if>
+                                            </td>
+                                            <@db_detail dbid="${e.id?c}">
+                                            <td>
+                                                <#list tag_dbrestypelist as typelist>
+                                                    ${typelist.updateName}  &nbsp
+                                                </#list>
+                                            </td>
+                                        </@db_detail>
+                                        <td>${e.hits}</td>
+                                        </tr>
+                                    </#list>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                ${Data.enpagehtml}
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <@cms_log ip="${Data.ip}" logpage="电子资源列表" logtype="web" sitecode="${Data.sitecode}" >
+
+</@cms_log>
+    <!--container end-->
+    <#include "footer.html">

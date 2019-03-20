@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<@cms_site sitecode="portal">
+<html lang="zh">
+<!-- cms_site标签，获取站点的信息，参数sitecode：站点的code -->
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name=”renderer” content=”webkit”>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <meta name="author" content="xiaoqiang">
+ <meta name="keyword" content="Java, Spring, MyBatis, MySQL">
+ <link rel="shortcut icon" href="template/cms/portal/img/xiaohui.png">
+
+
+ <!-- cms_site标签，tag_site.siteName取站点名称 -->
+ <title>${tag_site.siteName}</title>
+
+
+ <!-- Bootstrap core CSS -->
+ <link href="template/cms/portal/css/bootstrap.min.css" rel="stylesheet">
+ <link href="template/cms/portal/css/theme.css" rel="stylesheet">
+ <link href="template/cms/portal/css/bootstrap-reset.css" rel="stylesheet">
+ <!--external css-->
+ <link href="template/cms/portal/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+ <link rel="stylesheet" href="template/cms/portal/css/flexslider.css"/>
+ <link href="template/cms/portal/assets/bxslider/jquery.bxslider.css" rel="stylesheet" />
+ <link href="template/cms/portal/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+ <script src="template/cms/portal/js/jquery.js"></script>
+ <!-- Custom styles for this template -->
+ <link href="template/cms/portal/css/style.css" rel="stylesheet">
+ <link href="template/cms/portal/css/style-responsive.css" rel="stylesheet" />
+
+ <link href="template/cms/portal/assets/lightbox/css/lightbox.css" rel="stylesheet" />
+
+ <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="template/cms/portal/js/html5shiv.js"></script>
+      <script src="template/cms/portal/js/respond.min.js"></script>
+      <![endif]-->
+      <style>
+        body{
+          background-color: #BCD4DA;
+        }
+      .breadcrumb > li + li:before {
+         color: #CCCCCC;
+         content: "/ ";
+         padding: 0 5px;
+       }
+      .header-frontend {
+        box-shadow: 1px 4px 2px 0px rgba(0,0,0,.25);
+        position: relative;
+        z-index: 1;
+            }
+      .header-frontend .navbar-default {
+        background-color: #FFF;
+      }
+      .header-frontend .nav li a,
+      .header-frontend .nav li.active ul.dropdown-menu li a {
+         color: #666;
+      }
+      .header-frontend .nav li a:hover,
+      .header-frontend .nav li a:focus,
+      .header-frontend .nav li.active a,
+      .header-frontend .nav li.active a:hover,
+      .header-frontend .nav li a.dropdown-toggle:hover,
+      .header-frontend .nav li a.dropdown-toggle:focus,
+      .header-frontend .nav li.active ul.dropdown-menu li a:hover,
+      .header-frontend .nav li.active ul.dropdown-menu li.active a{
+          background-color: #20688b;
+      }
+      .category h3 {
+          background: #20688b;
+      }
+
+
+</style>
+</head>
+<body>
+ <header class="header-frontend">
+
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+
+            <div class="row">
+              <div class="">
+                 <!-- <marquee behavior="scroll" style='font-size: 13px;line-height: 24px;color: #999;'>本站最新更新了×××内容，更新日期xxx</marquee>  -->
+              </div>
+                <!--<div class="navbar-header col-md-4 col-sm-3">-->
+                <!--<img src="${tag_site.siteLogo}">-->
+                <!--</div>-->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="cmsController.do?goPage&page=index&siteCode=portal" ><img src="${tag_site.siteLogo}" alt="Logo" width="360px" style="padding-top: 10px"></a>
+            </div>
+            <div class="collapse navbar-collapse " id="example-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a>
+                    </li>
+
+                    <!-- cms_menu_list导航栏list，参数：menuLevel（栏目级数）、sitecode（站点）menuStatus(是否显示) -->
+                    <!-- 引出一级栏目 -->
+                    <@cms_menu_list menuLevel="cms_level_1" sitecode="portal" menuStatus="Y">
+
+                    <#list tag_menu_list as menu>
+                    <li><!-- 引出二级栏目 -->
+                        <@cms_menu_list menuLevel="cms_level_2" sitecode="portal" menuStatus="Y" parentid="${menu.id}">
+                        <a <#if menu.type=="04">href="${menu.url}" target="${menu.target}" <#else>href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=${menu.id}"</#if>
+                            <#if tag_menu_list?size gt 0>class="dropdown-toggle js-activated" data-toggle="dropdown"</#if>>${menu.name}<#if tag_menu_list?size gt 0><span class="caret"></span></#if></a>
+                            <#if tag_menu_list?size gt 0>
+                            <!-- 二级栏目 下拉菜单-->
+                            <ul class="dropdown-menu">
+                             <#list tag_menu_list as menu2>
+                             <li><a tabindex="-1" <#if menu2.type=="04">href="${menu2.url}" target="${menu2.target}" <#else>href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=${menu2.id}"</#if>>${menu2.name}</a></li>
+                             </#list>
+                         </ul>
+                         </#if>
+                         </@cms_menu_list>
+                     </li>
+                     </#list>
+                     </@cms_menu_list>
+
+                    <script type="text/javascript">
+                      $(function () {
+                        $('.dropdown-menu > li > a[href^="http"]').attr('target', '_blank');
+                      })
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</header>
+</@cms_site>

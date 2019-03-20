@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<@cms_site sitecode="portal2">
+<html>
+	<head>
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Title -->
+		<title>图书馆</title>
+		
+		<!-- Google Fonts -->
+		<link href='template/cms/portal2/css/font.css' rel='stylesheet' type='text/css'>
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" type="image/x-icon" href="template/cms/portal2/img/favicon.ico">
+		
+		<!-- Stylesheets -->
+		<link href="template/cms/portal2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="template/cms/portal2/css/fontello.css" rel="stylesheet" type="text/css">
+		<link href="template/cms/portal2/css/flexslider.css" rel="stylesheet" type="text/css">
+		<link href="template/cms/portal2/js/revolution-slider/template/cms/portal2/css/settings.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="template/cms/portal2/css/owl.carousel.css" rel="stylesheet" type="text/css">
+		<link href="template/cms/portal2/css/responsive-calendar.css" rel="stylesheet" type="text/css">
+		<link href="template/cms/portal2/css/chosen.css" rel="stylesheet" type="text/css">
+		<link href="jackbox/css/jackbox.min.css" rel="stylesheet" type="text/css" />
+		<link href="template/cms/portal2/css/cloud-zoom.css" rel="stylesheet" type="text/css" />
+		<link href="template/cms/portal2/css/style.css" rel="stylesheet" type="text/css">
+		<link href="template/cms/portal2/css/search.css" rel="stylesheet" type="text/css">
+
+		
+		<!--[if IE 9]>
+			<link rel="stylesheet" href="template/cms/portal2/css/ie9.css">
+		<![endif]-->
+		
+		<!--[if lt IE 9]>
+            <script src="template/cms/portal2/js/html5shiv.js"></script>
+			<link href="template/cms/portal2/css/jackbox-ie8.css" rel="stylesheet" type="text/css" />
+			<link rel="stylesheet" href="template/cms/portal2/css/ie.css">
+        <![endif]-->
+		
+		<!--[if gt IE 8]>
+			<link href="template/cms/portal2/css/jackbox-ie9.css" rel="stylesheet" type="text/css" />
+		<![endif]-->
+		
+		<!--[if IE 7]>
+			<link rel="stylesheet" href="template/cms/portal2/css/fontello-ie7.css">
+		<![endif]-->
+		
+		<style type="text/css">
+			.no-fouc {display:none;}
+	  	</style>
+		
+		<!-- jQuery -->
+		<script src="template/cms/portal2/js/jquery-1.11.0.min.js"></script>
+		<script src="template/cms/portal2/js/jquery-ui-1.10.4.min.js"></script>
+		
+		<!-- Preloader -->
+		<script src="template/cms/portal2/js/jquery.queryloader2.min.js"></script>
+		
+		<script type="text/javascript">
+		$('html').addClass('no-fouc');
+		
+		$(document).ready(function(){
+			
+			$('html').show();
+			
+			var window_w = $(window).width();
+			var window_h = $(window).height();
+			var window_s = $(window).scrollTop();
+			
+			$("body").queryLoader2({
+				backgroundColor: '#f2f4f9',
+				barColor: '#63b2f5',
+				barHeight: 4,
+				percentage:false,
+				deepSearch:true,
+				minimumTime:1000,
+				onComplete: function(){
+					
+					$('.animate-onscroll').filter(function(index){
+					
+						return this.offsetTop < (window_s + window_h);
+						
+					}).each(function(index, value){
+						
+						var el = $(this);
+						var el_y = $(this).offset().top;
+						
+						if((window_s) > el_y){
+							$(el).addClass('animated fadeInDown').removeClass('animate-onscroll');
+							setTimeout(function(){
+								$(el).css('opacity','1').removeClass('animated fadeInDown');
+							},2000);
+						}
+						
+					});
+					
+				}
+			});
+			
+		});
+		</script>
+		
+	</head>
+	
+	<body class="sticky-header-on tablet-sticky-header">
+	
+	<div id="fb-root"></div>
+		<!-- Container -->
+		<div class="container">
+			
+			
+			<!-- Header -->
+			<header id="header" class="animate-onscroll">
+				
+				<!-- Main Header -->
+				<div id="main-header">
+					
+					<div class="container">
+					
+					<div class="row">
+						
+						
+						
+						<!-- Logo -->
+						<div id="logo" class="col-lg-4 col-md-4 col-sm-5">
+							
+							<a href="main-v1.html"><img src="template/cms/portal2/img/logo1.png" alt="Logo"></a>
+							
+						</div>
+						<!-- /Logo -->
+
+
+
+						<!-- Main Quote -->
+						<div class="col-lg-3 col-md-3">
+
+
+
+						</div>
+						<!-- /Main Quote -->
+
+
+
+						<!-- Newsletter -->
+						<div class="col-lg-5 col-md-5 col-sm-7">
+							<#if session.getAttribute("personnelno")?exists>
+								<div class="pull-right" style="margin: 30px 0 0 0;">
+									欢迎 ${session.getAttribute("username")},
+									<a href="mylibController.do?user&page=user&siteCode=portal2">[我的图书馆]</a>
+									<a href="mylibController.do?user&page=logout&siteCode=portal2">[退出登录]</a>
+								</div>
+								<#else>
+								<form id="newsletter" action="mylibController.do?user&page=user&siteCode=portal2" method="POST">
+									<h5><strong>登录</strong> 我的图书馆</h5>
+									<div class="newsletter-form">
+
+										<div class="newsletter-email">
+											<input type="text" name="personnelno" placeholder="请输入账号">
+										</div>
+
+										<div class="newsletter-zip">
+											<input type="password" name="password" placeholder="请输入密码">
+										</div>
+
+										<div class="newsletter-submit">
+											<input type="submit" value="">
+											<i class="icons icon-right-thin"></i>
+										</div>
+									</div>
+								</form>
+							</#if>
+						</div>
+						<!-- /Newsletter -->
+
+
+						
+						
+					</div>
+					
+					</div>
+					
+				</div>
+				<!-- /Main Header -->
+
+				<!-- Lower Header -->
+				<div id="lower-header">
+					
+					<div class="container">
+					
+					<div id="menu-button">
+						<div>
+						<span></span>
+						<span></span>
+						<span></span>
+						</div>
+						<span>导航</span>
+					</div>
+					
+					<ul id="navigation">
+						<li class="current-menu-item">
+							<a href="cmsController.do?goPage&page=index&siteCode=portal2"><i class="icons icon-home"></i>首页 </a>
+						</li>
+                        <!-- cms_menu_list导航栏list，参数：menuLevel（栏目级数）、sitecode（站点）menuStatus(是否显示) -->
+                        <!-- 引出一级栏目 -->
+                        <@cms_menu_list menuLevel="cms_level_1" sitecode="portal2" menuStatus="Y">
+                        <#list tag_menu_list as menu>
+                        <li><!-- 引出二级栏目 -->
+                            <@cms_menu_list menuLevel="cms_level_2" sitecode="portal2" menuStatus="Y" parentid="${menu.id}">
+                            <a <#if menu.type=="04">href="${menu.url}" <#else>href="cmsController.do?goPage&page=menu&siteCode=portal2&menuid=${menu.id}"</#if>
+                            <#if tag_menu_list?size gt 0>class="dropdown-toggle js-activated" data-toggle="dropdown"</#if>>${menu.name}</a>
+                            <#if tag_menu_list?size gt 0>
+                                <!-- 二级栏目 下拉菜单-->
+                                <ul class="dropdown-menu">
+                                    <#list tag_menu_list as menu2>
+                                        <li><a tabindex="-1" <#if menu2.type=="04">href="${menu2.url}" <#else>href="cmsController.do?goPage&page=menu&siteCode=portal2&menuid=${menu2.id}"</#if>>${menu2.name}</a></li>
+                                    </#list>
+                                </ul>
+                            </#if>
+                        </@cms_menu_list>
+                        </li>
+                    </#list>
+                    </@cms_menu_list>
+
+						<li >
+							<a href="cmsController.do?goPage&page=menu&siteCode=portal2&menuid=402881e44695183a01469522f7d20019">本馆概况</a>
+							<ul>
+								<li><a href="javascript:;">图书馆简介</a></li>
+								<li><a href="javascript:;">组织结构</a></li>
+								<li><a href="javascript:;">馆容馆貌</a></li>
+								<li><a href="javascript:;">规章制度</a></li>
+								<li><a href="javascript:;">图书捐赠</a></li>
+							</ul>
+							
+						</li>
+						<li><a href="javascript:;">新闻动态</a></li>
+						<li><a href="esourceController.do?db&page=db&siteCode=portal2">电子资源</a></li>
+						<li><a href="javascript:;">读者服务</a></li>
+						<li><a href="javascript:;">帮助中心</a></li>
+						<li><a href="javascript:;">English</a></li>
+					</ul>
+					
+					</div>
+					
+				</div>
+				<!-- /Lower Header -->
+				
+				
+			</header>
+			<!-- /Header -->
+		</@cms_site>

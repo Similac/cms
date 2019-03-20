@@ -1,0 +1,84 @@
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                        <li><a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a></li>
+                        <li class="active">我的图书馆</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <div class="row">
+                <div class="col-sm-9 col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 style="color: #f77b6f;margin-top: 0px;"><i class="icon-desktop"></i> 我的服务</h3>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-xs-6">
+                            <a href="mylibController.do?goopac&site=portal&returnUrl=book_lst.php" class="thumbnail text-center" target="_blank">
+                                <i class="icon-book icon-106"></i>
+                                <p><small>借阅的图书及续借</small></p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-xs-6">
+                            <a href="mylibController.do?goopac&site=portal&returnUrl=book_hist.php" class="thumbnail text-center" target="_blank">
+                                <i class="icon-search icon-106"></i>
+                                <p><small>借阅历史</small></p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-xs-6">
+                            <a href="http://ill.gd.calis.edu.cn/gateway/" class="thumbnail text-center" target="_blank">
+                                <i class="icon-retweet icon-106"></i>
+                                <p><small>馆际互借</small></p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-xs-6">
+                            <a href="mylibController.do?goopac&site=portal&returnUrl=../asord/asord_redr.php" class="thumbnail text-center" target="_blank">
+                                <i class="icon-thumbs-up icon-106"></i>
+                                <p><small>图书荐购</small></p>
+                            </a>
+                        </div>
+                    </div>
+                    <#if favList?exists && favList?size gt 0>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 style="color: #f77b6f;"><i class="icon-star" style="color: #f77b6f;"></i> 我的收藏</h3>
+                        </div>
+                        <div class="col-xs-12">
+                            <ul class="col-xs-12 col-sm-6 ul-2">
+                                <#list favList as fav>
+                                    <#if fav_index%2==0>
+                                        <li>
+                                            <a href="/esource/detail/${(fav.dbid)!0}.htm" target="_blank">${(fav.cnname)!}</a>
+                                        </li>
+                                    </#if>
+                                </#list>
+                            </ul>
+                            <ul class="col-xs-12 col-sm-6 ul-2">
+                                <#list favList as fav>
+                                    <#if fav_index%2==1>
+                                        <li>
+                                            <a href="/esource/detail/${(fav.dbid)!0}.htm" target="_blank">${(fav.cnname)!}</a>
+                                        </li>
+                                    </#if>
+                                </#list>
+                            </ul>
+                        </div>
+                    </div>
+                    </#if>
+                </div>
+            <@cms_log ip="${Data.ip}" logpage="我的图书馆" logtype="web" sitecode="portal" >
+
+            </@cms_log>
+                <#include "sidebar-user.html">
+        </div>
+    </div>
+    <!--container end-->
+<#include "footer.html">

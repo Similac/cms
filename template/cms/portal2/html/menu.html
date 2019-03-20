@@ -1,0 +1,97 @@
+<#include "header.html">
+		<section id="content">
+			
+			<!-- Section -->
+			<section class="section full-width-bg gray-bg">
+				
+				<div class="row">
+					<@cms_menu menuid="${Data.menuid}">
+					<#include "sidebar.html">
+					<div class="col-lg-9 col-md-9 col-sm-8">
+						<!-- Owl Carousel -->
+						<div class="owl-carousel-container">
+
+							<div class="owl-header">
+								<ol class="breadcrumb">
+									<li><a href="cmsController.do?goPage&page=index&siteCode=portal2">首页</a></li>
+                                    <!-- cms_menu_list导航栏list，参数：menuLevel（栏目级数）、sitecode（站点）menuStatus(是否显示) menuid(栏目id) parentid（夫级栏目id）-->
+                                    <@cms_menu sitecode="${Data.sitecode}" menuid="${Data.menuid}" >
+
+                                    <#if tag_menu.menuLevel=="cms_level_2">
+                                        <@cms_menu_list sitecode="${Data.sitecode}" menuid="${tag_menu.parent.id}" >
+                                        <#list tag_menu_list as menu>
+                                            <li>
+                                                <a href="cmsController.do?goPage&page=menu&siteCode=portal2&menuid=${menu.id}">${menu.name}</a>
+                                            </li>
+                                        </#list>
+                                    </@cms_menu_list>
+                                    <li class="active">
+                                        ${tag_menu.name}
+                                    </li>
+
+                                    <#else>
+                                        <li class="active">
+                                            ${tag_menu.name}
+                                        </li>
+
+                                        </#if>
+
+                                    </@cms_menu>
+								</ol>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-4 blog-post animate-onscroll">
+
+									<div class="post-image">
+										<img src="template/cms/portal2/img/blog/post2.jpg" alt="">
+									</div>
+
+									<h4 class="post-title"><a href="">图书馆简介</a></h4>
+								</div>
+								<div class="col-sm-4 blog-post animate-onscroll">
+
+									<div class="post-image">
+										<img src="template/cms/portal2/img/blog/post2.jpg" alt="">
+									</div>
+
+									<h4 class="post-title"><a href="cmsController.do?goPage&page=article&siteCode=portal2&menuid=4028b88150c711330150c718e8310008&articleid=40289f4654f34eff0154f5bf7aa1009a">组织结构</a></h4>
+								</div>
+								<div class="col-sm-4 blog-post animate-onscroll">
+
+									<div class="post-image">
+										<img src="template/cms/portal2/img/blog/post2.jpg" alt="">
+									</div>
+
+									<h4 class="post-title"><a href="">馆容馆貌</a></h4>
+								</div>
+								<div class="col-sm-4 blog-post animate-onscroll">
+
+									<div class="post-image">
+										<img src="template/cms/portal2/img/blog/post2.jpg" alt="">
+									</div>
+
+									<h4 class="post-title"><a href="">规章制度</a></h4>
+								</div>
+								<div class="col-sm-4 blog-post animate-onscroll">
+
+									<div class="post-image">
+										<img src="template/cms/portal2/img/blog/post2.jpg" alt="">
+									</div>
+
+									<h4 class="post-title"><a href="">图书捐赠</a></h4>
+								</div>
+							</div>
+
+						</div>
+						<!-- /Owl Carousel -->						<!-- Banner Rotator -->
+
+						<!-- /Banner Rotator -->
+
+					</div>					<!-- /Sidebar -->
+					</@cms_menu>
+				</div>
+			</section>
+			<!-- /Section -->
+		</section>
+	<#include "footer.html">

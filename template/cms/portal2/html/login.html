@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="template/cms/portal/img/favicon.png">
+
+    <title>我的图书馆</title>
+
+
+    <!-- Google Fonts -->
+    <link href='template/cms/portal2/css/font.css' rel='stylesheet' type='text/css'>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="template/cms/portal2/img/favicon.ico">
+
+    <!-- Stylesheets -->
+    <link href="template/cms/portal2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="template/cms/portal2/css/fontello.css" rel="stylesheet" type="text/css">
+    <link href="template/cms/portal2/css/flexslider.css" rel="stylesheet" type="text/css">
+    <link href="template/cms/portal2/js/revolution-slider/template/cms/portal2/css/settings.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="template/cms/portal2/css/owl.carousel.css" rel="stylesheet" type="text/css">
+    <link href="template/cms/portal2/css/responsive-calendar.css" rel="stylesheet" type="text/css">
+    <link href="template/cms/portal2/css/chosen.css" rel="stylesheet" type="text/css">
+    <link href="jackbox/css/jackbox.min.css" rel="stylesheet" type="text/css" />
+    <link href="template/cms/portal2/css/cloud-zoom.css" rel="stylesheet" type="text/css" />
+    <link href="template/cms/portal2/css/style.css" rel="stylesheet" type="text/css">
+    <link href="template/cms/portal2/css/search.css" rel="stylesheet" type="text/css">
+
+
+    <!--[if IE 9]>
+    <link rel="stylesheet" href="template/cms/portal2/css/ie9.css">
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="template/cms/portal2/js/html5shiv.js"></script>
+    <link href="template/cms/portal2/css/jackbox-ie8.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="template/cms/portal2/css/ie.css">
+    <![endif]-->
+
+    <!--[if gt IE 8]>
+    <link href="template/cms/portal2/css/jackbox-ie9.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="template/cms/portal2/css/fontello-ie7.css">
+    <![endif]-->
+
+    <style type="text/css">
+        .no-fouc {display:none;}
+    </style>
+
+    <!-- jQuery -->
+    <script src="template/cms/portal2/js/jquery-1.11.0.min.js"></script>
+    <script src="template/cms/portal2/js/jquery-ui-1.10.4.min.js"></script>
+
+    <!-- Preloader -->
+    <script src="template/cms/portal2/js/jquery.queryloader2.min.js"></script>
+	<style type="text/css">
+p.error {
+	color: #DE5959;
+}
+
+.form-signin input[type="text"].error, .form-signin input[type="password"].error {
+	border-color: #b94a48;
+	color: #b94a48;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+input.error:focus {
+	border-color: #953b39;
+	color: #b94a48;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px
+		#d59392;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}	
+	</style>
+</head>
+
+  <body class="login-body">
+
+    <div class="container text-center">
+      <form class="form-signin col-md-6 col-md-offset-3" style="background-color: #fff;margin-top: 50px;" id="adminForm" action="mylibController.do?user&siteCode=portal2"  autocomplete="off" method="post">
+        <h2 class="form-signin-heading" style="background-color: #274472;border-radius: 5px 5px 0 0;"><img src="template/cms/portal/img/logo.png" style="height:70px;"/></h2>
+        <div class="login-wrap">
+            <input type="text" name="personnelno" class="form-control" style="margin: 10px 0;" placeholder="读者的证件号/条码号/您的Email" value="" autofocus>
+            <input type="password" name="password" class="form-control" style="margin: 10px 0;"  placeholder="密码（初始密码为001或您的学号）" value="">
+			<input type="hidden" name="page" class="form-control"  value="${Data.page!}">
+            <input type="hidden" name="id" class="form-control"  value="${Data.id!}">
+            <div style="color: red;">${Data.message!}</div>
+			<button class="button big blue" type="submit" style="margin: 10px 0;" >登录</button>
+        </div>
+      </form>
+
+    </div>
+
+  </body>
+
+</html>

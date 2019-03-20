@@ -1,0 +1,53 @@
+
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                        <li><a href="cmsController.do?goPage&page=index&siteCode=enportal">Home</a></li>
+                        <li class="active">E-resource</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <#include "dbsearchbar.html">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <i class="glyphicon glyphicon-list"></i>  Common E-resources
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <h3>Foreign language database </h3>
+                            <div class="col-sm-6">
+                                <ul class="ul-2">
+                                    <#list Data.endbList as e>
+                                        <li>  <a href="esourceController.do?db&page=dbdetail&siteCode=enportal&dbid=${e.id?c}">${e.cnname} </a></li>
+                                        <#if (e_index+1==Data.ennum) >
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="ul-2">
+                                    </#if>
+                                    </#list>
+                                </ul>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <@cms_log ip="${Data.ip}" logpage="电子资源首页" logtype="web" sitecode="${Data.sitecode}" >
+
+</@cms_log>
+    <!--container end-->
+    <#include "footer.html">

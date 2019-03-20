@@ -1,0 +1,116 @@
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row mymain">
+            <div class="breadcrumbs mybreadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                       <li><a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a></li>
+                            <li><a href="esourceController.do?db&page=db&siteCode=portal">电子资源</a></li>
+                            <li class="active">详细信息</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <div class="row mymain">
+            <div class="col-xs-12 ">
+                <div class="panel panel-primary mypanel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list"></i> 电子资源信息
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal dl-2">
+                            <dt>名称</dt>
+                            <dd>${Data.db.cnname}</dd>
+                            <dt style="margin-top: 3px;">链接入口</dt>
+                            <dd>
+                              <#if Data.isIP=="true">
+
+                                <#list Data.dbUrlList as url>
+                                    <div>
+                                        <label for="txt${url_index+1}">${url.urltxt!}入口: </label>
+                                        <input name="txt${url_index+1}" value="正在测试......" theme="simple" style="width: 200px;"/>
+                                        <#if (url.urlstate)??>
+                                        <#if url.urlstate=="1">
+                                            <a href="${url.url}" target="_blank"> <span class="disabled">[点击进入]</span>
+                                           </a>
+                                            <#else>
+                                            <a href="${url.url}" target="_blank">[点击进入]</a>
+                                        </#if>
+                                        </#if>
+                                        <img src="${url.url}123456" width="0" height="0" onerror="auto('${url.url}')" style="visibility: hidden;"/>
+                                    </div>
+
+                                </#list>
+                              <#else>
+                              您的IP地址：${Data.remoteIP}，不在校园网范围内，无法访问该资源</a>
+                              </#if>
+                            </dd>
+                            <dt>资源类型</dt>
+                            <dd>
+                                <@db_detail dbid="${Data.db.id?c}">
+
+                                    <#list tag_dbrestypelist as typelist>
+                                        ${typelist.createName}  &nbsp
+                                    </#list>
+                                 </@db_detail>
+                            </dd>
+                            <dt>使用范围</dt>
+                            <#if (Data.dbArealimit.typename)??>
+                            <dd>${Data.dbArealimit.typename}</dd>
+                                <#else>
+                                <dd></dd>
+                             </#if>
+                            <dt>培训教程</dt>
+                            <dd><a  href="${Data.db.contactinfo}" target="_blank">链接</a></dd>
+                            <dt>订购状态</dt>
+                            <dd>${Data.dbOrderstate.typename}</dd>
+                            <#if Data.db.orderstate =="order_trail">
+                             <dt>试用截止日期</dt>
+                              <dd>
+                                  <#if Data.db.validtime?exists>
+                                  ${Data.db.validtime?string("yyyy-MM-dd")}
+                                  <#else>
+                                      长期试用
+                                  </#if>
+                              </dd>
+                            </#if>
+                            <dt>详细介绍</dt>
+                            <dd>${Data.db.detailinfo}</dd>
+
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <@cms_log ip="${Data.ip}" logpage="${Data.db.id?c}" logtype="db" sitecode="${Data.sitecode}" >
+
+   </@cms_log>
+    <!--container end-->
+    <script type="text/javascript">
+        var tim=1;
+        var b=1;
+        setInterval("tim++",100);
+        function auto(url){
+            if(tim>200)
+            {
+                $("[name=txt"+b+"]").val("连接测试时间");
+            }
+            else
+            {
+                $("[name=txt"+b+"]").val("连接测试时间 "+tim/10+" 秒");
+            }
+            b++;
+        }
+    </script>
+<#include "footer.html">

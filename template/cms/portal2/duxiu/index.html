@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0188)http://www.duxiu.com/pop/isearch.jsp?style=16&sw=%CA%E4%C8%EB%BC%EC%CB%F7%B4%CA&field=&logo=&defpd=0&bimg=http://www.duxiu.com/pop/images/popbimg.gif&pd=,0,1,2,3,4,5,6,7,8,10,11,&swsize=65 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>检索框</title>
+	<link href="css/popidx.css" type="text/css" rel="stylesheet">
+	<link href="../css/search.css" type="text/css" rel="stylesheet">
+<script language="JavaScript">
+	//控制文本框的焦点
+	function textFocus(e,i){	
+		try{
+			if(i == 1 && (e.value == null || e.value == '')){
+				e.value ="输入检索词";
+			}else if(i == 2 && e.value =="输入检索词"){
+				e.value = '';
+			}
+		}catch(err){}
+	}
+
+	function getAdvhref(e){
+		if(e.value == 'searchJour'){
+			document.getElementById("href").href = "http://jour.duxiu.com/advsearchmag.jsp";
+		}else{
+			document.getElementById("href").href = "http://book.duxiu.com/advsearch.jsp";
+		}
+	}
+	
+	var morenid = "me_0";
+	
+	function changeTag(id,channel){
+		document.getElementById(morenid).style.display = "block";
+		document.getElementById(morenid+"_1").style.display = "none";
+		document.getElementById(id).style.display = "none";
+		document.getElementById(id+"_1").style.display = "block";
+		if(document.getElementById(morenid+"_1_1"))
+			document.getElementById(morenid+"_1_1").style.display = "none";
+		if(document.getElementById(id+"_1_1"))
+			document.getElementById(id+"_1_1").style.display = "block";
+		morenid = id;
+		document.getElementById("channel").value = channel;
+		
+		if(document.getElementById("ihref")){
+			if(channel=='goqw.jsp'){
+				document.getElementById("ihref").style.display = "none";
+			}else{
+				document.getElementById("ihref").style.display = "";
+			}
+		
+			if(channel == 'searchJour'){
+				document.getElementById("ihref").href = "http://jour.duxiu.com/advsearchmag.jsp";
+			}else{
+				document.getElementById("ihref").href = "http://book.duxiu.com/advsearch.jsp";
+			}
+		}
+	}
+	function send(){
+		var sendid=morenid;
+		var sw = document.getElementById("sw").value;
+		if(sw == '输入检索词'){
+			alert("请输入检索词");
+			return false;
+		}
+		if(document.getElementById("channel").value =="search")
+			sendid = "me_1";
+		if(sendid != "me_0"){
+		  for(i=0;i<document.getElementsByName(sendid+"_Field").length;i++)   
+		  	if(document.getElementsByName(sendid+"_Field")[i].checked)
+		  		document.getElementById("Field").value=document.getElementsByName(sendid+"_Field")[i].value;
+		}
+		return;
+	}
+	function clean(e){
+		e.value="";
+	}
+
+	var boottype="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1> <LABEL for=slt1 id='bookn'>书名</LABEL><INPUT type=radio value=2 name=Field id=slt2><LABEL for=slt2>作者</LABEL>";
+	var magtype="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1> <LABEL for=slt1 id='bookn'>标题</LABEL><INPUT type=radio value=2 name=Field id=slt2><LABEL for=slt2>作者</LABEL><INPUT id=slt3 type=radio value=3 name=Field ><label for=slt3>刊名</label><INPUT id=slt4 type=radio value=4 name=Field ><label for=slt4>关键词</label>";
+	var hylwtype="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1> <LABEL for=slt1 id='bookn'>标题</LABEL><INPUT type=radio value=2 name=Field id=slt2><LABEL for=slt2>作者</LABEL><INPUT id=slt3 type=radio value=3 name=Field ><label for=slt3>关键词</label><INPUT id=slt4 type=radio value=4 name=Field ><label for=slt4>会议名称 </label>";
+	var xwlwtype="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1> <LABEL for=slt1 id='bookn'>标题</LABEL><INPUT type=radio value=2 name=Field id=slt2><LABEL for=slt2>作者</LABEL><INPUT id=slt4 type=radio value=4 name=Field ><label for=slt4>授予单位</label><INPUT id=slt3 type=radio value=3 name=Field ><label for=slt3>关键词</label>";
+	var video="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1> <LABEL for=slt1 id='bookn'>视频名称</LABEL><INPUT type=radio value=2 name=Field id=slt2><LABEL for=slt2>简介</LABEL><INPUT type=radio value=3 name=Field id=slt3><LABEL for=slt3>字幕</LABEL><INPUT type=radio value=4 name=Field id=slt4><LABEL for=slt4>主题词</LABEL>";
+	var baozhi="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1> <LABEL for=slt1 id='bookn'>标题</LABEL><INPUT type=radio value=2 name=Field id=slt2><LABEL for=slt2>作者</LABEL><INPUT type=radio value=3 name=Field id=slt3><LABEL for=slt3>来源</LABEL>";
+	var gnbz="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1> <LABEL for=slt1 id='bookn'>标准号</LABEL><INPUT type=radio value=2 name=Field id=slt2><LABEL for=slt2>标准中文名</LABEL><INPUT type=radio value=3 name=Field id=slt3><LABEL for=slt3>标准英文名</LABEL>";
+	var zl="<INPUT type=radio CHECKED value=all name=Field id=slt0> <LABEL for=slt0>全部字段</LABEL><INPUT type=radio value=1 name=Field id=slt1><LABEL for=slt1>专利名称</LABEL><INPUT type=radio value=2 name=Field id=slt2> <LABEL for=slt2 id='bookn'>申请号</LABEL><INPUT type=radio value=3 name=Field id=slt3><LABEL for=slt3>发明人</LABEL><INPUT type=radio value=4 name=Field id=slt4><LABEL for=slt4>IPC号</LABEL>";
+	var wendang="<INPUT id=slt0 value=all CHECKED type=radio name=Field><LABEL for=slt0>全部</LABEL><INPUT id=slt1 value=1 type=radio name=Field><LABEL for=slt1>DOC</LABEL><INPUT id=slt2 value=2 type=radio name=Field><LABEL for=slt2>PDF</LABEL><INPUT id=slt3 value=3 type=radio name=Field><LABEL for=slt3>PPT</LABEL><INPUT id=slt4 value=4 type=radio name=Field><LABEL for=slt4>XLS</LABEL><INPUT id=slt5 value=5 type=radio name=Field><LABEL for=slt5>TXT</LABEL><INPUT id=slt6 value=6 type=radio name=Field><LABEL for=slt6>其他格式</LABEL>";
+	var advbook = "<A href='http://book.duxiu.com/advsearch.jsp' target=_blank>高级检索</A>";
+	var advmag ="<A href='http://jour.duxiu.com/advsearchmag.jsp' target=_blank>高级检索</A>";
+	var advcp = "<A href='http://book.duxiu.com/advsearchcp.jsp' target=_blank>高级检索</A>";
+	var advthesis ="<A href='http://jour.duxiu.com/advsearchthesis.jsp' target=_blank>高级检索</A>";
+	var advother= "";
+	
+	advbook = advbook+advother;
+	advmag = advmag+advother;
+	advcp = advcp+advother;
+	advthesis = advthesis+advother;
+	var ch_channel = "goqw.jsp";
+	var en_channel = "searchFJour";
+	var dftag = "";
+	function change_Tag(tag,ch,en){
+		if(ch=="goqw.jsp"){
+			en = "searchFJour";
+		}
+		ch_channel = ch;
+		en_channel = en;
+		if(ch==""){
+			document.getElementById("ch_search").disabled = true;
+		}else{
+			document.getElementById("ch_search").disabled = false;
+		}
+		if(en==""){
+			document.getElementById("en_search").disabled = true;
+		}else{
+			document.getElementById("en_search").disabled = false;
+		}
+		if(dftag==""){
+			document.getElementById(tag).style.display='none';
+			document.getElementById(tag+'_1').style.display='';
+		}else{
+			document.getElementById(dftag).style.display='';
+			document.getElementById(dftag+'_1').style.display='none';
+			document.getElementById(tag).style.display='none';
+			document.getElementById(tag+'_1').style.display='';
+		}
+		switch(ch){
+			case "search":{
+				document.getElementById("field").innerHTML=boottype;
+				document.getElementById("advsearch").innerHTML = advbook;
+				break;
+			}
+			case "searchJour":{
+				document.getElementById("field").innerHTML=magtype;
+				document.getElementById("advsearch").innerHTML = advmag;
+				break;
+			}
+			case "searchCP":{
+				document.getElementById("field").innerHTML=hylwtype;
+				document.getElementById("advsearch").innerHTML = advcp;
+				break;
+			}
+			case "searchThesis":{
+				document.getElementById("field").innerHTML=xwlwtype;
+				document.getElementById("advsearch").innerHTML = advthesis;
+				break;
+			}
+			case "searchVideo":{
+				document.getElementById("field").innerHTML=video;
+				document.getElementById("advsearch").innerHTML = advother;
+				break;
+			}
+			case "searchPatent":{
+				document.getElementById("field").innerHTML=zl;
+				document.getElementById("advsearch").innerHTML = advother;
+				break;
+			}
+			case "searchNP":{
+				document.getElementById("field").innerHTML=baozhi;
+				document.getElementById("advsearch").innerHTML = advother;
+				break;
+			}
+			case "searchStd":{
+				document.getElementById("field").innerHTML=gnbz;
+				document.getElementById("advsearch").innerHTML = advother;
+				break;
+			}
+			case "searchMix":{
+				document.getElementById("advsearch").innerHTML=advother;
+				document.getElementById("field").innerHTML="";
+				break;
+			}
+			case "searchLaw":{
+				document.getElementById("advsearch").innerHTML=advother;
+				document.getElementById("field").innerHTML="";
+				break;
+			}
+			case "searchDoc":{
+				document.getElementById("advsearch").innerHTML=advother;
+				document.getElementById("field").innerHTML=wendang;
+				break;
+			}
+			case "searchScReport":{
+				document.getElementById("advsearch").innerHTML=advother;
+				document.getElementById("field").innerHTML="";
+				break;
+			}
+			
+			default:{
+				document.getElementById("field").innerHTML="";
+				document.getElementById("advsearch").innerHTML = advother;
+				break;
+			}
+		}
+			
+		try{
+			dftag=tag;
+			document.getElementById("sw").focus();
+		}catch(err){}
+		
+	}
+
+	function search(e){
+		var sw = document.getElementById("sw").value;
+		if(sw == '输入检索词'){
+			alert("请输入检索词");
+			return false;
+		}
+		
+		var url = "http://www.duxiu.com/gosearch.jsp?sw="+encodeURI(sw)+"&ecode=utf-8";
+		
+		var fields = document.getElementsByName("Field");
+		if(fields){
+			for(var i = 0;i<fields.length;i++){
+				if(fields[i].checked){
+					url = url + "&Field="+fields[i].value;
+				}
+			}
+		}
+		if(e=="ch"){
+			url = url + "&channel="+ch_channel;
+			
+		}else{
+			url = url + "&channel="+en_channel;
+		}
+		window.open(url);
+	}
+	
+	function check(){
+		var sw = document.getElementById("sw").value ;
+		if(sw == '输入检索词'){
+			alert("请输入检索词");
+			return false;
+		}
+	}
+	
+</script>
+<style>
+BODY {TEXT-ALIGN: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: arial, verdana, sans-serif; FONT-SIZE: 14px; PADDING-TOP: 0px ;}
+FORM {PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px}
+A {TEXT-DECORATION: none}
+.copybutton A {PADDING-LEFT: 8px; WIDTH: 80px; HEIGHT: 22px; COLOR: #333333; TEXT-DECORATION: none; PADDING-TOP: 7px}
+.copybutton A:link {BACKGROUND-IMAGE: url(images/55.gif); DISPLAY: block; BACKGROUND-POSITION: 0px 29px}
+.copybutton A:visited {BACKGROUND-IMAGE: url(images/55.gif); DISPLAY: block; BACKGROUND-POSITION: 0px 29px}
+.copybutton A:hover {BACKGROUND-IMAGE: url(images/55.gif); DISPLAY: block; BACKGROUND-POSITION: 0px 0px}
+#top_menu UL {PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 200px; PADDING-RIGHT: 0px; FLOAT: left; HEIGHT: 18px; OVERFLOW: hidden; PADDING-TOP: 0px}
+#top_menu LI {FLOAT: left; OVERFLOW: hidden; MARGIN-RIGHT: 5px}
+#top_menu2 UL {PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 200px; PADDING-RIGHT: 0px; FLOAT: left; HEIGHT: 18px; OVERFLOW: hidden; PADDING-TOP: 0px}
+#top_menu2 LI {FLOAT: left; OVERFLOW: hidden; MARGIN-RIGHT: 5px}
+OPTION {BACKGROUND-COLOR: transparent}
+INPUT {FONT-SIZE: 14px}
+.logo_newbig {FLOAT: left; PADDING-TOP: 2px}
+.logo_newbig {width: 91px;height: 26px}
+.logo_newbig A:hover { background-color:transparent;TEXT-DECORATION: none}
+.logo_newsmall A:hover {background-color:transparent; TEXT-DECORATION: none}
+#top_menu11 UL {PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 200px; PADDING-RIGHT: 0px; FLOAT: left; HEIGHT: 16px; OVERFLOW: hidden; PADDING-TOP: 0px}
+#top_menu11 LI {FLOAT: left; OVERFLOW: hidden; MARGIN-RIGHT: 5px}
+#help12 A {TEXT-DECORATION: underline}
+.mod15_right {PADDING-LEFT: 2px; WIDTH: 244px; FLOAT: left}
+#top_menu11 A {TEXT-DECORATION: none}
+#top_menu22 {TEXT-ALIGN: left; PADDING-BOTTOM: 0px; PADDING-LEFT: 4px; WIDTH: 480px; PADDING-RIGHT: 0px; FLOAT: left; HEIGHT: 26px; FONT-SIZE: 14px; OVERFLOW: hidden; PADDING-TOP: 0px}
+#top_menu22 UL {PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 490px; PADDING-RIGHT: 0px; FLOAT: left; HEIGHT: 26px; OVERFLOW: hidden; PADDING-TOP: 0px}
+#top_menu22 LI {FLOAT: left; OVERFLOW: hidden; MARGIN-RIGHT: 5px}
+.mod14_5 {TEXT-ALIGN: left; PADDING-LEFT: 2px; WIDTH: 480px; PADDING-TOP: 0px}
+#advsearch{	FONT-SIZE: 14px; }
+</style>
+</head><style type="text/css" id="1673901611057"></style>
+
+
+<body onload="change_Tag(&#39;me_0&#39;,&#39;goqw.jsp&#39;,&#39;searchFJour&#39;)" style="BACKGROUND-COLOR: transparent" mycollectionplug="bind">
+
+	<div style="PADDING-LEFT: 0px;">
+	<div>
+	<div class="logo_newbig"><a href="http://www.duxiu.com/index.html" target="_blank"><img src="img/biglogo.gif" border="0"></a></div>
+	<div class="mod15_right">
+	<div id="top_menu22">
+	<ul>
+	  
+	  <li id="me_0_1" style="font-weight: bold; width: 30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">知识</font></a></li><li id="me_0" style="display: none; height: 20px; width: 30px;"><a onclick="change_Tag(&#39;me_0&#39;,&#39;goqw.jsp&#39;,&#39;&#39;);" href="javaScript:" style="width:30px;">知识</a></li>
+	  
+	  <li id="me_1_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">图书</font></a></li><li id="me_1" style="DISPLAY: block;height:20px;width:30px;"><a onclick="change_Tag(&#39;me_1&#39;,&#39;search&#39;,&#39;searchFBook&#39;);" href="javaScript:" style="width:30px;">图书</a></li>
+	  
+	  <li id="me_2_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">期刊</font></a></li><li id="me_2" style="DISPLAY: block;height:20px;width:30px;"><a onclick="change_Tag(&#39;me_2&#39;,&#39;searchJour&#39;,&#39;searchFJour&#39;);" href="javaScript:" style="width:30px;">期刊</a></li>
+	  
+	  <li id="me_3_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">报纸</font></a></li><li id="me_3" style="DISPLAY: block;height:20px;width:30px;"><a onclick="change_Tag(&#39;me_3&#39;,&#39;searchNP&#39;,&#39;&#39;);" href="javaScript:" style="width:30px;">报纸</a></li>
+	  
+	  <li id="me_4_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:60px;"><a style="width:60px;text-decoration:none;"><font color="#000000">学位论文</font></a></li><li id="me_4" style="DISPLAY: block;height:20px;width:60px;"><a onclick="change_Tag(&#39;me_4&#39;,&#39;searchThesis&#39;,&#39;searchFThesis&#39;);" href="javaScript:" style="width:60px;">学位论文</a></li>
+	  
+	  <li id="me_5_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:60px;"><a style="width:60px;text-decoration:none;"><font color="#000000">会议论文</font></a></li><li id="me_5" style="DISPLAY: block;height:20px;width:60px;"><a onclick="change_Tag(&#39;me_5&#39;,&#39;searchCP&#39;,&#39;searchFCP&#39;);" href="javaScript:" style="width:60px;">会议论文</a></li>
+	  
+	  <li id="me_12_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">文档</font></a></li><li id="me_12" style="DISPLAY: block;height:20px;width:30px;"><a onclick="change_Tag(&#39;me_12&#39;,&#39;searchDoc&#39;,&#39;&#39;);" href="javaScript:" style="width:30px;">文档</a></li>
+	  
+	  <li id="me_6_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">专利</font></a></li><li id="me_6" style="DISPLAY: block;height:20px;width:30px;"><a onclick="change_Tag(&#39;me_6&#39;,&#39;searchPatent&#39;,&#39;searchFPatent&#39;);" href="javaScript:" style="width:30px;">专利</a></li>
+	  
+	  <li id="me_7_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">标准</font></a></li><li id="me_7" style="DISPLAY: block;height:20px;width:30px;"><a onclick="change_Tag(&#39;me_7&#39;,&#39;searchStd&#39;,&#39;searchFStd&#39;);" href="javaScript:" style="width:30px;">标准</a></li>
+	  
+	  <li id="me_8_1" style="DISPLAY: none; FONT-WEIGHT: bold;WIDTH:30px;"><a style="width:30px;text-decoration:none;"><font color="#000000">视频</font></a></li><li id="me_8" style="DISPLAY: block;height:20px;width:30px;"><a onclick="change_Tag(&#39;me_8&#39;,&#39;searchVideo&#39;,&#39;&#39;);" href="javaScript:" style="width:30px;">视频</a></li>
+	  
+	  <li id="me_more" style="DISPLAY: block;height:20px;width:30px;"><a style="text-decoration:underline;*text-decoration:underline;" href="http://www.duxiu.com/more.jsp" target="_blank">更多</a></li>
+	  
+	</ul>
+	</div>
+	
+	<div class="mod14_5" style="position:relative">
+	<div style="float:left; padding-top: 5px;">
+	<input onblur="textFocus(this,1)" type="text" id="sw" onclick="textFocus(this,2)" size="65" name="sw" value="输入检索词">
+	<input type="hidden" value="utf-8" name="ecode"> 
+	</div>
+	</div>
+
+	<div style="display:block;text-align:left;width:400px; clear:both;height:30px;line-height: 30px;" id="field"></div>
+	
+	
+	<div style="width:400px;TEXT-ALIGN:left;clear:both;">
+		<button class="button big blue" onclick="search(&#39;ch&#39;)" name="ch_search" id="ch_search">中文搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="button big blue" onclick="search(&#39;en&#39;)" name="en_search" id="en_search">外文搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span id="advsearch"></span>
+		<a href="http://www.duxiu.com/help/help.html" target="_blank">使用帮助</a>
+	</div>
+	
+	</div>
+	</div>
+	
+
+</div></body></html>

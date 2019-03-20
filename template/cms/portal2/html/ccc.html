@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+    <script language="JavaScript">
+        function cccsearch()
+        {
+            piwikTracker.trackPageView('cccform');
+            document.forms["cccform"].submit();
+        }
+    </script>
+    <style type="text/css">
+        #form1 table tbody tr td a {
+            font-size: 12px;
+        }
+    </style>
+    <link href="../css/search.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<form id="form1" name="cccform" target="_blank" method="get" action="http://ccc.calis.edu.cn/result.php">
+    <table width="94%">
+        <tbody><tr>
+            <td valign="left" width="20%" align="left"><label>
+                <select name="from">
+                    <option value="0">篇 名</option>
+                    <option value="2">作 者</option>
+                    <option value="1">刊 名</option>
+                    <option value="4">ISSN</option>
+                    <option value="3">全 面</option>
+                </select> </label></td>
+            <td valign="left" width="50%" align="left"><label>
+                <input name="at" size="30" value="CALIS外文期刊" type="text"> </label></td>
+            <td valign="left" width="15%" align="left">
+                <button class="button big blue" height="19" type="submit" width="58" onClick="cccsearch();"><i class="icon-search"></i> 搜索</button>
+            </td>
+            <td width="15%"><a href="http://202.116.174.76:8011/feedback/public/survey.php?name=calis_sfg_s" target="_blank" idth="100">意见反馈</a></td>
+        </tr>
+        </tbody></table>
+</form>
+<!-- Piwik -->
+<script type="text/javascript">
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://202.116.174.117:9009/piwik/" : "http://202.116.174.117:9009/piwik/");
+    /*
+     document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+     */
+</script>
+<script src="piwikjs/piwik.js" type="text/javascript"></script>
+<script type="text/javascript">
+    try {
+        var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 3);
+        piwikTracker.setLinkClasses("external");
+        piwikTracker.trackPageView();
+        piwikTracker.trackGoal(1);
+        piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+</script><noscript><p><img src="http://202.116.174.117:9009/piwik/piwik.php?idsite=3" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code  我加入的在线统计功能-->
+</body>
+</html>

@@ -1,0 +1,116 @@
+<#include "header.html">
+        <!--container start-->
+        <div id="maincontent" class="container">
+            <div class="row mymain">
+                <!-- cms_menu标签 输出menuid的栏目-->
+                <@cms_menu menuid="${Data.menuid}">
+                <#include "sidebar.html">
+                    <div class="col-md-9">
+                        <#include "topbar.html">
+                        <!-- 判断该栏目是否有栏目图片-->
+                        <#if (tag_menu.imageName?exists)&&(tag_menu.menuLevel=="cms_level_1")>
+                            <img src="${tag_menu.imageHref}" style="width: 100%;"/>
+                        </#if>
+                            <div class="article-list">
+                        <!-- 判断该栏目是否是单文章-->
+                        <#if (tag_menu.type=="02")>
+                            <!-- 判断该栏目是否是多文章 如果是，输出单文章  p="1" rows="1"(输出一篇文章) type="N"（不包括子辈） -->
+                            <@cms_article_list menuid="${Data.menuid}" p="1" rows="1" type="N">
+                            <#list tag_article_list as article>
+                                <div style="padding-left: 20px;padding-right: 20px;">
+                                    <@cms_article articleid="${article.id}">
+                                        <div class="title">
+                                            <h1 class="post-title"><span class="title-highlight">${tag_article.title}</span>
+                                            </h1>
+                                            <span style="text-align:center; display:block;">发布时间：${tag_article.createDate?date} 点击次数：${tag_article.viewcount}</span>
+
+                                        </div>
+                                        <div align="center" style="display:none;">
+                                            <img src="${tag_article.imageHref!}" align="center"/>
+                                        </div>
+                                        <div>
+                                            ${tag_article.content}
+                                        </div>
+                                    </@cms_article>
+                                </div>
+                            </#list>
+                        </@cms_article_list>
+                        <!-- 判断该栏目是否是多文章 如果是，输出文章列表-->
+                        <#elseif (tag_menu.type=="01")>
+                            <table class="table table-striped article-list-table">
+                                <tbody>
+                                <!-- 输出该栏目的多文章列表-->
+                                <@cms_article_list sitecode="${Data.sitecode}" menuid="${Data.menuid}" rows="10" type="Y" p="${Data.p}">
+                                <#list tag_article_list as article>
+                                    <tr>
+                                        <td style="height:39px;width: 59px;width: 5%"><i class="glyphicon glyphicon-chevron-right"></i></td>
+                                        <td style="width: 80%">
+                                            <a href="cmsController.do?goPage&page=article&siteCode=portal&menuid=${article.columnId}&articleid=${article.id}">${article.title}</a>
+                                        </td>
+                                        <td> ${article.createDate?date}</td>
+                                    </tr>
+                                </#list>
+
+                                </tbody>
+                            </table>
+
+
+                            <div class="text-center">
+                                <!-- 页码标签-->
+                                ${page.pagehtml}
+                            </div>
+                            <!-- 结束标签-->
+                        </@cms_article_list>
+
+                        <!-- 判断该栏目是否是相册 如果是，输出相册列表-->
+                        <#elseif (tag_menu.type=="03")>
+                            <table class="table table-striped" style="height: 400px">
+
+                                <tbody>
+                                <@cms_article_list sitecode="${Data.sitecode}" menuid="${Data.menuid}" rows="8" type="Y" p="${Data.p}">
+                                <tr>
+                                    <#list tag_article_list as article>
+                                        <td align="center" height="50"><a
+                                                href="cmsController.do?goPage&page=article&siteCode=portal&menuid=${article.columnId}&articleid=${article.id}">
+                                            <img src="${article.imageHref}" style="width: 70%;"
+                                                 onMouseOver="toolTip('<img src=${article.imageHref} width=400 >')"
+                                                 onMouseOut="toolTip()"/><br>${article.title}</a></td>
+                                        <#if (article_index+1)%4 ==0>
+                                </tr>
+                                <tr>
+                                    </#if>
+                                    <#if (article_index+1)%8 ==0>
+                                </tr>
+                                <tr>
+                                    </#if>
+                                    </#list>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <!-- 页码标签-->
+                                ${page.pagehtml}
+                            </div>
+                            <!-- 结束标签-->
+                        </@cms_article_list>
+                        </#if>
+                            </div>
+                    </div>
+                    <!-- 结束标签-->
+                    <@cms_log ip="${Data.ip}" logpage="栏目：${tag_menu.name}" logtype="web" sitecode="${Data.sitecode}" >
+
+                </@cms_log>
+            </@cms_menu>
+
+
+        </div>
+
+        </div>
+        <!--container end-->
+        <script src="template/cms/portal/js/jquery.pin.min.js"></script>
+        <script src="template/cms/portal/js/ToolTip.js"></script>
+        <!--container end-->
+        <script type="text/javascript">
+            $("#sidebarPin").pin({containerSelector: "#maincontent", minWidth: 970});
+        </script>
+        <#include "footer.html">

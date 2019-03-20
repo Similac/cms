@@ -1,0 +1,117 @@
+
+<#include "header.html">
+    <section class="section full-width-bg gray-bg" style="opacity: 1;padding-top:5px;padding-bottom: 0;">
+        <p class="breadcrumb">
+            <a href="cmsController.do?goPage&page=index&siteCode=portal22">首页</a> /
+            <a href="esourceController.do?db&page=db&siteCode=portal22">电子资源</a>
+        </p>
+
+    </section>
+    <#include "dbsearchbar.html">
+    <section class="section full-width-bg gray-bg" style="padding-top: 5px;">
+        <div class="row">
+            <div class="col-xs-12  animate-onscroll">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list"></i>  常用电子资源
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <h3>中文数据库</h3>
+
+                        <#if (Data.cnnum>0) >
+                            <div class="col-sm-6">
+                                <ul class="ul-2">
+                            <#list Data.cndbList as e>
+                                <li>  <a href="esourceController.do?db&page=dbdetail&siteCode=portal2&dbid=${e.id?c}">${e.cnname} </a></li>
+                                <#if (e_index+1==Data.cnnum) >
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="ul-2">
+                                  </#if>
+                            </#list>
+                                </ul>
+                            </div>
+
+                            <#else>
+                                <div class="col-sm-6">
+                                    <ul class="ul-2">
+                                        <li>  <a href="">馆藏图书全文数据库 </a></li>
+                                        <li>  <a href="">超星数字图书馆</a></li>
+                                        <li>  <a href="">维普中文科技期刊数据库</a></li>
+                                        <li>  <a href="">中文社会科学引文索引(CSSCI)</a></li>
+                                        <li>  <a href="">中国大百科全书</a>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="ul-2">
+                                        <li>  <a href="">CNKI中国知网(期刊、学位论文、会议、报纸、年鉴、工具书)</a></li>
+                                        <li>  <a href="">读秀学术搜索</a></li>
+                                        <li>  <a href="">全国报刊索引</a></li>
+                                        <li>  <a href="">国研网</a></li>
+                                        <li>  <a href="">中国生物医学文献数据库</a></li>
+                                        <li>  <a href="">中国资讯行</a></li>
+                                    </ul>
+                                </div>
+                        </#if>
+
+                        <h3>外文数据库</h3>
+                                <#if (Data.ennum>0) >
+                                    <div class="col-sm-6">
+                                        <ul class="ul-2">
+                                            <#list Data.endbList as e>
+                                                <li>  <a href="esourceController.do?db&page=dbdetail&siteCode=portal2&dbid=${e.id?c}">${e.cnname} </a></li>
+                                                <#if (e_index+1==Data.ennum) >
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <ul class="ul-2">
+                                </#if>
+                                </#list>
+                                </ul>
+                </div>
+
+                <#else>
+                        <div class="col-sm-6">
+                            <ul class="ul-2">
+                                <li>  <a href="">ACM </a></li>
+                                <li>  <a href="">ACS</a></li>
+                                <li>  <a href="">AIP</a></li>
+                                <li>  <a href="">APS</a></li>
+                                <li>  <a href="">Cell Press</a></li>
+                                <li>  <a href="">EBSCO-Academic Search Premier</a></li>
+                                <li>  <a href="">EI</a>
+                                <li>  <a href="">Elsevier-SDOL</a></li>
+                                <li>  <a href="">MathSciNet</a></li>
+                                <li>  <a href="">JSTOR</a></li>
+                                <li>  <a href="">Lexis.com</a></li>
+                                <li>  <a href="">EBSCO eBook</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="ul-2">
+                                <li>  <a href="">JCR Science Edition</a></li>
+                                <li>  <a href="">Nature</a></li>
+                                <li>  <a href="">ProQuest Abstract</a></li>
+                                <li>  <a href="">ProQuest Fulltext</a></li>
+                                <li>  <a href="">Science Online</a></li>
+                                <li>  <a href="">Springer</a></li>
+                                <li>  <a href="">SciFinder Scholar</a></li>
+                                <li>  <a href="">Wiley-Blackwell</a></li>
+                                <li>  <a href="">Web of Science(SCI/SSCI/A&HCI、CPCI-S、BP)</a></li>
+                                <li>  <a href="">Cell Press</a></li>
+                                <li>  <a href=""> IEL（IEEE/IET Electronic Library）</a> </li>
+                                <li>  <a href=""> Emerald Backdate Series</a></li>
+                            </ul>
+                        </div>
+                    </#if>
+
+            </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--container end-->
+<#include "footer.html">

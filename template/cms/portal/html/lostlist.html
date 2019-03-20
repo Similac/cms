@@ -1,0 +1,88 @@
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <@cms_site sitecode="portal">
+    <style>
+        #content img {max-width:100px}
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumbs" style="margin-top: 20px;">
+                <div class="col-lg-12 col-sm-12" >
+                    <ol class="breadcrumb text-menu">
+                        <li><a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a>
+                        </li>
+                         <li class="active">
+                             失物招领
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--container start-->
+    <div class="container">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="panel panel-primary" style="border-color: #20688b;margin-top: 20px;">
+                        <div class="panel-heading" style=" background-color: #20688b;border-color: #20688b;">
+                            <h3 class="panel-title">
+                                <i class="icon-reply"></i> 失物招领
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <th width="20%">失物名称</th>
+                                        <th width="40%">详细信息</th>
+                                        <th>拾捡地点</th>
+                                        <th>拾捡时间</th>
+                                        <th>领取地点</th>
+                                        <th>状态</th>
+                                    </tr>
+                                    <!-- 输出-->
+                                    <@cms_lost_list sitecode="${Data.sitecode}"  rows="10"  p="${Data.p}">
+                                    <#list tag_lost_list as lostlist>
+                                        <tr>
+                                            <td>${lostlist.title}</td>
+                                            <td width="40%" id="content">${lostlist.content}</td>
+
+                                            <td>${lostlist.foundaddress}</td>
+                                            <td>${lostlist.foundtime?string("yyyy-MM-dd")}</td>
+                                            <td>${lostlist.address}</td>
+                                            <td><#if lostlist.statenow=="1">已领取
+                                                <#else>
+                                                    未领取
+                                                </#if>
+                                             </td>
+
+                                        </tr>
+                                    </#list>
+                                </table>
+
+                            </div>
+                            <div class="text-center">
+                                <!--分页-->
+                                ${page.pagehtml}
+                            </div>
+
+
+                            </@cms_lost_list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!--container end-->
+<script src="template/cms/portal/js/jquery.pin.min.js"></script>
+<!--container end-->
+<script type="text/javascript">
+    $("#sidebarPin").pin({containerSelector: "#maincontent",minWidth: 970});
+</script>
+
+ <@cms_log ip="${Data.ip}" logpage="失物招领" logtype="web" sitecode="${Data.sitecode}" >
+
+</@cms_log>
+</@cms_site>
+<#include "footer.html">

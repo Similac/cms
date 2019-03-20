@@ -1,0 +1,31 @@
+<!-- BEGIN BREADCRUMBS -->
+<div class="breadcrumbs">
+    <ol class="breadcrumb text-menu">
+        <li><a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a>
+        </li>
+        <!-- cms_menu_list导航栏list，参数：menuLevel（栏目级数）、sitecode（站点）menuStatus(是否显示) menuid(栏目id) parentid（夫级栏目id）-->
+       <@cms_menu sitecode="${Data.sitecode}" menuid="${Data.menuid}" >
+
+        <#if tag_menu.menuLevel=="cms_level_2">
+        <@cms_menu_list sitecode="${Data.sitecode}" menuid="${tag_menu.parent.id}" >
+        <#list tag_menu_list as menu>
+            <li>
+                <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=${menu.id}">${menu.name}</a>
+            </li>
+        </#list>
+        </@cms_menu_list>
+        <li class="active">
+            ${tag_menu.name}
+        </li>
+
+        <#else>
+            <li class="active">
+                ${tag_menu.name}
+            </li>
+
+            </#if>
+
+   </@cms_menu>
+    </ol>
+</div>
+<!-- END BREADCRUMBS -->

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<@cms_site sitecode="${Data.sitecode}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”renderer” content=”webkit”>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="xiaoqiang">
+    <meta name="keyword" content="Java, Spring, MyBatis, MySQL">
+    <link rel="shortcut icon" href="template/cms/enportal/img/favicon.png">
+
+
+
+    <title>${tag_site.siteName}</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="template/cms/enportal/css/bootstrap.min.css" rel="stylesheet">
+    <link href="template/cms/enportal/css/theme.css" rel="stylesheet">
+    <link href="template/cms/enportal/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="template/cms/enportal/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="template/cms/enportal/css/flexslider.css"/>
+    <link href="template/cms/enportal/assets/bxslider/jquery.bxslider.css" rel="stylesheet" />
+    <link href="template/cms/enportal/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+    <script src="template/cms/enportal/js/jquery.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="template/cms/enportal/css/style.css" rel="stylesheet">
+    <link href="template/cms/enportal/css/style-responsive.css" rel="stylesheet" />
+
+    <link href="template/cms/enportal/assets/lightbox/css/lightbox.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="template/cms/enportal/js/html5shiv.js"></script>
+      <script src="template/cms/enportal/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .breadcrumb > li + li:before {
+	    color: #CCCCCC;
+	    content: "/ ";
+	    padding: 0 5px;
+	}
+    </style>
+  </head>
+  <body>
+  	<header class="header-frontend">
+  	
+        <div class="navbar navbar-default navbar-static-top" style="background-color: #8aaaea;">
+            <div class="container">
+            
+                <div class="row">
+                    <div class="navbar-header" style="padding-top: 15px">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#example-navbar-collapse">
+                            <span class="sr-only">切换导航</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                         <img src="${tag_site.siteLogo}" width="353">
+                    </div>
+                    <div class="collapse navbar-collapse " id="example-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="cmsController.do?goPage&page=index&siteCode=enportal">Home</a>
+                            </li>
+                            <li >
+                                <a href="mylibController.do?user&page=user&siteCode=enportal">Login</a>
+                            </li>
+                            <!-- cms_menu_list导航栏list，参数：menuLevel（栏目级数）、sitecode（站点）menuStatus(是否显示) -->
+                            <@cms_menu_list menuLevel="cms_level_1" sitecode="${Data.sitecode}" menuStatus="Y">
+
+                            <#list tag_menu_list as menu>
+                                    <li>
+                                        <#if menu.type=="04">
+                                            <a href="${menu.url}">${menu.name}</a>
+                                            <#else>
+                                                <a href="cmsController.do?goPage&page=menu&siteCode=enportal&menuid=${menu.id}">${menu.name}</a>
+                                        </#if>
+                                    </li>
+                                </#list>
+                            </@cms_menu_list>
+                            <li>
+                                <a href="cmsController.do?goPage&page=index&siteCode=portal">中文</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+  </@cms_site>

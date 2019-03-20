@@ -1,0 +1,36 @@
+
+<#include "header.html">
+	<#include "topbar.html">
+    <!--container start-->
+
+    <div id="maincontent" class="container">
+
+
+        <div class="row">
+            <!--blog start-->
+            <div class="col-md-9 ">
+                <@cms_article articleid="${Data.articleid}">
+                  <div class="title">
+                      <h1 class="post-title"><span class="title-highlight">${tag_article.title}</span></h1>
+                  </div>
+                  <div>
+                       ${tag_article.content}
+                  </div>
+                <@cms_log ip="${Data.ip}" logpage="文章:${tag_article.title}" logtype="web" sitecode="${Data.sitecode}" >
+
+                </@cms_log>
+            </@cms_article>
+            </div>
+        <#include "sidebar-detail.html">
+        <!--blog end-->
+        </div>
+
+
+    </div>
+<script src="template/cms/enportal/js/jquery.pin.min.js"></script>
+<script src="template/cms/enportal/assets/lightbox/js/lightbox.min.js"></script>
+    <!--container end-->
+    <script type="text/javascript">
+        $("#sidebarPin").pin({containerSelector: "#maincontent",minWidth: 970});
+    </script>
+<#include "footer.html">

@@ -1,0 +1,30 @@
+<!-- BEGIN RIGHT SIDEBAR -->
+<div class="col-md-3">
+    <div id="sidebarPin">
+        <div class="blog-side-item">
+            <div class="category">
+                <@cms_menu menuid="${Data.parentid}">
+                <h3><i class="icon-folder-open icon-26"></i><a href="cmsController.do?goPage&page=menu&siteCode=ebportal&menuid=${tag_menu.id}"><span style="text-transform: capitalize;">${tag_menu.name} </span></a></h3>
+
+
+                <!-- cms_menu_list导航栏list，参数：menuLevel（栏目级数）、sitecode（站点）menuStatus(是否显示) parenid(夫级id)-->
+                <@cms_menu_list parentid="${tag_menu.id}">
+                <#if cms_menu_list?exists>
+                    <ul class="list-unstyled">
+                        <#list tag_menu_list as menu>
+                        <li>
+                            <a <#if menu.id==Data.menuid> class="active"</#if> <#if menu.type=="04">href="${menu.url}" <#else>href="cmsController.do?goPage&page=menu&siteCode=enportal&menuid=${menu.id}"</#if>>
+                            <i class="  icon-angle-right"></i> ${menu.name}</a>
+                        </li>
+                    </#list>
+                    </ul>
+                </#if>
+                </@cms_menu_list>
+            </@cms_menu>
+        </div>
+        </div>
+        <#include "relation-links.html">
+    </div>
+</div>
+<!-- END RIGHT SIDEBAR -->
+

@@ -1,0 +1,120 @@
+<#include "header.html">
+		<section id="content">
+			<@cms_article articleid="${Data.articleid}">
+			<section class="section page-heading" style="opacity: 1;padding-top:5px;">
+
+
+				<p class="breadcrumb">
+					<a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a> /
+					<a href="cmsController.do?goPage&page=menu&siteCode=portal2&menuid=402881e44695183a01469522f7d20019">本馆概况</a> / ${tag_article.title}
+				</p>
+				<div class="text-center" style="margin-top: 20px;"><h1>${tag_article.title}</h1></div>
+
+			</section>
+			<section class="section full-width-bg gray-bg" style="padding-top: 20px;">
+
+				<div class="row">
+					<#include "sidebar-detail.html">
+
+						<div class="col-lg-9 col-md-9 col-sm-8">
+
+						<!-- Single Blog Post -->
+						<div class="blog-post-single">
+							<div class="post-content">
+
+								${tag_article.content}
+
+							</div>
+						</div>
+						<!-- Post Comments -->
+						<div class="post-comments">
+
+							<h3 class="animate-onscroll">相关评论</h3>
+
+							<ul>
+								<li>
+
+									<div class="comment animate-onscroll">
+
+										<div class="comment-author">
+											<img src="template/cms/portal2/img/testimonials/profile1.jpg" alt="">
+											<div class="author-meta">
+												<h6>评论标题</h6>
+												<div class="comment-meta">
+													<span>姓名</span>
+													<span>2016-06-17 11:45</span>
+													<span><a href="#">回复</a></span>
+												</div>
+											</div>
+										</div>
+										<div class="comment-content">
+											<p>这里是评论内容</p>
+										</div>
+
+									</div>
+
+								</li>
+								<li>
+
+									<div class="comment animate-onscroll">
+
+										<div class="comment-author">
+											<img src="template/cms/portal2/img/testimonials/profile1.jpg" alt="">
+											<div class="author-meta">
+												<h6>评论标题</h6>
+												<div class="comment-meta">
+													<span>姓名</span>
+													<span>2016-06-17 11:45</span>
+													<span><a href="#">回复</a></span>
+												</div>
+											</div>
+										</div>
+										<div class="comment-content">
+											<p>这里是评论内容</p>
+										</div>
+
+									</div>
+
+								</li>
+								<li>
+
+									<div class="comment animate-onscroll">
+
+										<div class="comment-author">
+											<img src="template/cms/portal2/img/testimonials/profile1.jpg" alt="">
+											<div class="author-meta">
+												<h6>评论标题</h6>
+												<div class="comment-meta">
+													<span>姓名</span>
+													<span>2016-06-17 11:45</span>
+													<span><a href="#">回复</a></span>
+												</div>
+											</div>
+										</div>
+										<div class="comment-content">
+											<p>这里是评论内容</p>
+										</div>
+
+									</div>
+
+								</li>
+							</ul>
+
+						</div>
+						<!-- /Post Comments -->
+					</div>
+
+				</div>
+			</section>
+			
+			<!-- Section -->
+			<section class="section full-width-bg gray-bg">
+				
+				<div class="row">
+
+				</div>
+			</section>
+			<!-- /Section -->
+			</@cms_article>
+		</section>
+	<#include "footer.html">

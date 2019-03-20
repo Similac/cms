@@ -1,0 +1,78 @@
+<#include "header.html">
+	<#include "topbar.html">
+    <!--container start-->
+    <div id="maincontent" class="container">
+        <div class="row">
+            <!-- cms_menu标签 输出menuid的栏目-->
+            <@cms_menu menuid="${Data.menuid}">
+            <div class="col-md-9">
+                <!-- 判断该栏目是否有栏目图片-->
+                <#if (tag_menu.imageName?exists)&&(tag_menu.menuLevel=="cms_level_1")>
+                        <img src="${tag_menu.imageHref}" style="width: 100%;"/>
+                    </#if>
+                <!-- 判断该栏目是否是单文章-->
+                <#if (tag_menu.type=="02")>
+                    <!-- 判断该栏目是否是多文章 如果是，输出单文章  p="1" rows="1" type="N"（不包括子辈） -->
+                    <@cms_article_list menuid="${Data.menuid}" p="1" rows="1" type="N">
+                       <#list tag_article_list as article>
+                           <@cms_article articleid="${article.id}">
+                           <div class="title">
+                               <h1 class="post-title"><span class="title-highlight">${tag_article.title}</span>
+                               </h1>
+                           </div>
+                           <div align="center">
+                               <img src="${tag_article.imageHref!}" align="center"/>
+                           </div>
+                           <div>
+                               ${tag_article.content}
+                           </div>
+                       </@cms_article>
+                       </#list>
+                    </@cms_article_list>
+                <!-- 判断该栏目是否是多文章 如果是，输出文章列表-->
+                <#elseif (tag_menu.type=="01")>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th width="8"></th>
+                          <th></th>
+                            <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <!-- 输出该栏目的多文章列表-->
+                    <@cms_article_list sitecode="${Data.sitecode}" menuid="${Data.menuid}" rows="15" type="Y" p="${Data.p}">
+                        <#list tag_article_list as article>
+                            <tr>
+                              <td><i class="glyphicon glyphicon-chevron-right"></i></td>
+                              <td><a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=${article.columnId}&articleid=${article.id}">${article.title}</a></td>
+                              <td></td>
+                            </tr>
+                        </#list>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="text-center">
+                        ${page.enpagehtml}
+                    </div>
+                </@cms_article_list>
+                    </#if>
+                </div>
+             <@cms_log ip="${Data.ip}" logpage="栏目：${tag_menu.name}" logtype="web" sitecode="${Data.sitecode}" >
+
+             </@cms_log>
+            </@cms_menu>
+
+        <#include "sidebar.html">
+        </div>
+
+    </div>
+    <!--container end-->
+<script src="template/cms/enportal/js/jquery.pin.min.js"></script>
+<!--container end-->
+<script type="text/javascript">
+    $("#sidebarPin").pin({containerSelector: "#maincontent",minWidth: 970});
+</script>
+<#include "footer.html">

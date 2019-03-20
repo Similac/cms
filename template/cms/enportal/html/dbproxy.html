@@ -1,0 +1,73 @@
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row mymain">
+            <div class="breadcrumbs mybreadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                       <li><a href="cmsController.do?goPage&page=index&siteCode=portal">Home</a></li>
+                            <li><a href="esourceController.do?db&page=db&siteCode=portal">E-resource</a></li>
+                            <li class="active">Off-Campus Access</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <div class="row mymain">
+            <div class="col-xs-12 ">
+                <div class="panel panel-primary mypanel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list"></i> Off-Campus Access
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-12 " style="text-align: center">
+                          <form action="http://202.116.174.111:9000/login" method="post" >
+                              <input type="hidden" name="url" value="^U">
+
+                            <dd>
+                                   <h3><font style="COLOR: #006699;FONT-WEIGHT: bold;">The South China Agricultural Library's</font><font style="COLOR:#ff6600;FONT-WEIGHT: bold;"> Off-Campus Access</font></h3>
+                            </dd>
+                            <dd style="height: 40px;" class="form-inline">
+                                 Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：<input type="text" class="form-control" placeholder="Email" style="width: 200px;" name="user">
+
+                            </dd>
+                            <dd style="height: 40px;" class="form-inline">
+                                 Password：<input type="password" name="pass" class="form-control" id="Password1" placeholder="Password" style="width: 200px;" >
+                            </dd>
+                            <dd style="height: 40px;">
+                                <input type="submit" class="btn btn-success" value="Login">&nbsp;&nbsp;
+                                <input type="button" class="btn btn-success" value="Register" onclick="location.href='http://202.116.174.111/ezproxyregister/ezproxy.do'">
+                            </dd>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <@cms_log ip="${Data.ip}" logpage="校外访问入口" logtype="web" sitecode="${Data.sitecode}" >
+
+</@cms_log>
+    <!--container end-->
+    <script type="text/javascript">
+        var tim=1;
+        var b=1;
+        setInterval("tim++",100);
+        function auto(url){
+            if(tim>200)
+            {
+                $("[name=txt"+b+"]").val("连接测试时间");
+            }
+            else
+            {
+                $("[name=txt"+b+"]").val("连接测试时间 "+tim/10+" 秒");
+            }
+            b++;
+        }
+    </script>
+<#include "footer.html">

@@ -1,0 +1,1168 @@
+<#include "header.html">
+<@cms_site sitecode="portal">
+<style>
+    .bx-wrapper .bx-viewport {
+        -moz-box-shadow: 0 0 0px #ccc;
+        -webkit-box-shadow: 0 0 0px #ccc;
+        box-shadow: 0 0 0px #ccc;
+        left: 0px;
+    }
+    .quote-info {
+      background-color: rgba(255,255,255,0.3);
+      padding: 26px 26px 0;
+      border-radius: 10px;
+      }
+      .quote-info .nav-tabs{
+         border: none;
+     }
+     .my-tabs2 li {
+        margin-right: 2px;
+    }
+    .my-tabs2 li a {
+        background-color: rgba(255,255,255,0.7);
+        border-radius: 8px;
+    }
+    .appitem > a > i{
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      /*background: url('../img/sprite.png') no-repeat 0px -128px;*/
+      background: url(template/cms/portal/img/sprite.png) no-repeat 0px -128px;
+    }
+    .appitem > a > p{
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    #myTabConten>.tab-content{
+        padding: 10px;
+        margin-top: -10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
+        border-top: none;
+    }
+    .cbox-right .news-item {
+        border-bottom: 1px dotted #ccc;
+    }
+    .cbox-right .news-item .meta-title {
+        line-height: 34px;
+        margin-right:60px;
+    }
+    .appitem>.thumbnail {
+        border-radius: 8px;
+        border: none;
+    }
+    .cbox-right .news-item {
+        line-height: 34px;
+    }
+    .cbox-right .news-item .meta-title {
+        line-height: 34px;
+    }
+    .news-item {
+        line-height: 34px;
+    }
+    .news-item .meta-title {
+        line-height: 34px;
+    }
+
+    .news-item { border-bottom: 1px dotted #999999; line-height: 32px; position: relative;background: url(template/cms/portal/img/li.gif) no-repeat 4px center;padding-left: 14px;}
+    .news-item .meta-title { display: block; line-height: 32px; margin-right: 45px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .news-item .meta-title a { color: #444e67; font-size: 14px; font-family: "microsoft yahei";}
+    .news-item .meta-title a:hover { color: #428bca;}
+    .news-item .meta-time { display: block; color: #444e67; font-size: 14px; font-family: "microsoft yahei"; position: absolute; top: 0; right: 0;}
+
+    .footer-nav-wrapper{
+        margin: 0 15px;
+      }
+</style>
+<!--浮动广告 -->
+<SCRIPT type=text/javascript>
+    function addEvent(obj,evtType,func,cap){
+        cap=cap||false;
+        if(obj.addEventListener){
+            obj.addEventListener(evtType,func,cap);
+            return true;
+        }else if(obj.attachEvent){
+            if(cap){
+                obj.setCapture();
+                return true;
+            }else{
+                return obj.attachEvent("on" + evtType,func);
+            }
+        }else{
+            return false;
+        }
+    }
+    function getPageScroll(){
+        var xScroll,yScroll;
+        if (self.pageXOffset) {
+            xScroll = self.pageXOffset;
+        } else if (document.documentElement && document.documentElement.scrollLeft){
+            xScroll = document.documentElement.scrollLeft;
+        } else if (document.body) {
+            xScroll = document.body.scrollLeft;
+        }
+        if (self.pageYOffset) {
+            yScroll = self.pageYOffset;
+        } else if (document.documentElement && document.documentElement.scrollTop){
+            yScroll = document.documentElement.scrollTop;
+        } else if (document.body) {
+            yScroll = document.body.scrollTop;
+        }
+        arrayPageScroll = new Array(xScroll,yScroll);
+        return arrayPageScroll;
+    }
+    function GetPageSize(){
+        var xScroll, yScroll;
+        if (window.innerHeight && window.scrollMaxY) {
+            xScroll = document.body.scrollWidth;
+            yScroll = window.innerHeight + window.scrollMaxY;
+        } else if (document.body.scrollHeight > document.body.offsetHeight){
+            xScroll = document.body.scrollWidth;
+            yScroll = document.body.scrollHeight;
+        } else {
+            xScroll = document.body.offsetWidth;
+            yScroll = document.body.offsetHeight;
+        }
+        var windowWidth, windowHeight;
+        if (self.innerHeight) {
+            windowWidth = self.innerWidth;
+            windowHeight = self.innerHeight;
+        } else if (document.documentElement && document.documentElement.clientHeight) {
+            windowWidth = document.documentElement.clientWidth;
+            windowHeight = document.documentElement.clientHeight;
+        } else if (document.body) {
+            windowWidth = document.body.clientWidth;
+            windowHeight = document.body.clientHeight;
+        }
+        if(yScroll < windowHeight){
+            pageHeight = windowHeight;
+        } else {
+            pageHeight = yScroll;
+        }
+        if(xScroll < windowWidth){
+            pageWidth = windowWidth;
+        } else {
+            pageWidth = xScroll;
+        }
+        arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight)
+        return arrayPageSize;
+    }
+
+    var AdMoveConfig=new Object();
+    AdMoveConfig.IsInitialized=false;
+    AdMoveConfig.ScrollX=0;
+    AdMoveConfig.ScrollY=0;
+    AdMoveConfig.MoveWidth=0;
+    AdMoveConfig.MoveHeight=0;
+    AdMoveConfig.Resize=function(){
+        var winsize=GetPageSize();
+        AdMoveConfig.MoveWidth=winsize[2];
+        AdMoveConfig.MoveHeight=winsize[3];
+        AdMoveConfig.Scroll();
+    }
+    AdMoveConfig.Scroll=function(){
+        var winscroll=getPageScroll();
+        AdMoveConfig.ScrollX=winscroll[0];
+        AdMoveConfig.ScrollY=winscroll[1];
+    }
+    addEvent(window,"resize",AdMoveConfig.Resize);
+    addEvent(window,"scroll",AdMoveConfig.Scroll);
+    function AdMove(id){
+        if(!AdMoveConfig.IsInitialized){
+            AdMoveConfig.Resize();
+            AdMoveConfig.IsInitialized=true;
+        }
+        var obj=document.getElementById(id);
+        obj.style.position="absolute";
+        var W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+        var H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+        var x = W*Math.random(),y = H*Math.random();
+        var rad=(Math.random()+1)*Math.PI/6;
+        var kx=Math.sin(rad),ky=Math.cos(rad);
+        var dirx = (Math.random()<0.5?1:-1), diry = (Math.random()<0.5?1:-1);
+        var step = 1;
+        var interval;
+        this.SetLocation=function(vx,vy){x=vx;y=vy;}
+        this.SetDirection=function(vx,vy){dirx=vx;diry=vy;}
+        obj.CustomMethod=function(){
+            obj.style.left = (x + AdMoveConfig.ScrollX) + "px";
+            obj.style.top = (y + AdMoveConfig.ScrollY) + "px";
+            rad=(Math.random()+1)*Math.PI/6;
+            W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+            H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+            x = x + step*kx*dirx;
+            if (x < 0){dirx = 1;x = 0;kx=Math.sin(rad);ky=Math.cos(rad);}
+            if (x > W){dirx = -1;x = W;kx=Math.sin(rad);ky=Math.cos(rad);}
+            y = y + step*ky*diry;
+            if (y < 0){diry = 1;y = 0;kx=Math.sin(rad);ky=Math.cos(rad);}
+            if (y > H){diry = -1;y = H;kx=Math.sin(rad);ky=Math.cos(rad);}
+        }
+        this.Run=function(){
+            var delay = 10;
+            interval=setInterval(obj.CustomMethod,delay);
+            obj.onmouseover=function(){clearInterval(interval);}
+            obj.onmouseout=function(){interval=setInterval(obj.CustomMethod, delay);}
+        }
+    }
+</SCRIPT>
+<#if tag_ad.imageName??>
+<DIV id=ad1 style="Z-INDEX: 20">
+    <!--浮动广告 漂浮开始-->
+    <A href="${tag_ad.imageName}" target=_blank><IMG src="${tag_ad.imageHref}??" width="${tag_ad.accountid}"></A>
+    <a id="close" style="cursor: pointer;position: relative;top: -55px;font-size: 24px;">×</a>
+    <!--漂浮结束-->
+</DIV>
+    <SCRIPT type=text/javascript>
+        var ad1=new AdMove("ad1");
+        ad1.Run();
+        $('#close').click(function(){
+            $('#ad1').css('display','none');
+        });
+        //多组漂浮
+        //var ad1=new AdMove("ad2");
+        //ad2.Run();
+    </SCRIPT>
+</#if>
+
+
+
+<!--container start-->
+<div class="container">
+  <!-- 更换主页背景颜色 -->
+  <div class="bg-change clearfix">
+    <div class="bg-change-angle"></div>
+    <ul class="bg-change-box clearfix">
+      <li class="bg-change-item" data-color="#ae7bc0"></li>
+      <li class="bg-change-item" data-color="#fff3dc"></li>
+      <li class="bg-change-item" data-color="#c4fdea"></li>
+      <li class="bg-change-item" data-color="#ffc0e4"></li>
+      <li class="bg-change-item" data-color="#60b4d7"></li>
+      <li class="bg-change-item" data-color="#ffffc5"></li>
+      <li class="bg-change-item" data-color="#207a9d"></li>
+    </ul>
+  </div>
+  <script type="text/javascript">
+  $(function () {
+    $('.bg-change-item').click(function () {
+      var color = $(this).attr('data-color');
+      $('body').css('background-color', color);
+      $('.footer-nav-wrapper').css('background-color', color);
+    })
+    $('.carousel-cover-logo').css('background', 'url(template/cms/portal/img/cover_story_' + Math.ceil(Math.random()*5) + '.png) no-repeat');
+  })
+    </script>
+    <div id="myCarousel" class="carousel slide hidden-sm hidden-xs" data-ride="carousel" style="margin-bottom: 30px;">
+
+        <!-- 封面小故事插图 -->
+        <a class="carousel-cover-logo" href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee35f7049c9016057d731c729bf"></a>
+        <div class="carousel-inner" role="listbox" style="overflow: visible;">
+            <div class="item active">
+                <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
+                <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
+                <style>
+                    .slick-dots{
+                        display: inline-block !important;
+                        right: 0;
+                        bottom: 5px;
+                        z-index: 11;
+                        width: auto;
+                    }
+                    .slick-slide{
+                        position: relative;
+                    }
+                    .slick-prev, .slick-next {
+                        width: 50px;
+                        height: 50px;
+                        z-index: 1;
+                    }
+                    .slick-prev:before, .slick-next:before {
+                        font-size: 46px;
+                    }
+                    .slick-next {
+                        right: 0px;
+                    }
+                    .slick-prev {
+                        left: 5px;
+                    }
+                    .slick-dots li {
+                        margin: 0 2px;
+                    }
+                    .slick-dotted.slick-slider {
+                        margin-bottom: 0px;
+                    }
+                    .annotation{
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        width: 20%;
+                        height: 100%;
+                        padding: 0 2.4em 0 1.2em;
+                        background-color: rgba(0,0,0,.3);
+                        color: #FFF;
+                    }
+                    .annotation > h2 {
+                        margin-top:  2.5em;
+                        font-size: 28px;
+                        text-align: center;
+                    }
+                    .annotation > p:nth-child(2) {
+                        font-size: 17px;
+                        line-height:1.8;
+                    }
+                    .annotation > p:nth-child(3) {
+                        text-align: right;
+                    }
+
+                    .quote-info {
+                        background-color: transparent;
+                    }
+                </style>
+                <!-- Slick -->
+                <!--[if IE 8]>
+                <script>
+                    //输出随机的背景图
+                    document.write('<img style="max-height: 340px;" src="template/cms/portal/img/' + Math.ceil(Math.random()*20) + '.jpg" alt="First slide">');
+                </script>
+                <![endif]-->
+
+                <!--[if IE 9]>
+                <div class="carousel-slick"></div>
+                <![endif]-->
+
+                <!--[if !IE]><!-->
+                <div class="carousel-slick"></div>
+                <!--<![endif]-->
+
+                <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+
+                <script>
+
+                    var carouselArr = [
+                        {title: '毕业季', description: '一声同学，一生同学。', author: ''},
+                        {title: '毕业季', description: '愿我们的友谊永远不散。', author: ''},
+                        {title: '毕业季', description: '今日同窗分开，说一声：珍重！明朝校友相逢，贺一句：成功！', author: ''},
+                        {title: '毕业季', description: '光阴似箭，岁月如梭', author: ''},
+                        {title: '毕业季', description: '毕业，意味着将走向社会，将完全自己对自己负责。', author: ''},
+
+                    ];
+                    var randomArr = [];
+                    var carouelStr = '';
+                    while(randomArr.length < 5) {
+                        var randomNum = Math.floor( Math.random()*5 );
+                        if(randomArr.indexOf( randomNum )==-1) {
+                            randomArr.push(randomNum);
+                        }
+                    }
+                    for(var i = 0; i < randomArr.length; i++){
+                        carouelStr += '<div><div><img src="template/cms/portal/img/lunbo/' + (randomArr[i]+1) + '.png" alt="">' +
+                                '</div><div class="annotation"><h2>' + carouselArr[randomArr[i]].title + '</h2><p>' + carouselArr[randomArr[i]].description +
+                                '</p><p>'+ carouselArr[randomArr[i]].author +'</p></div></div>'
+                    }
+                    $('.carousel-slick').html(carouelStr);
+
+                    $('.carousel-slick').slick({
+                        dots: true
+                    });
+
+                    // $('.carousel-image').html('<img src="template/cms/portal/img/' + Math.ceil(Math.random()*21) + '.jpg">');
+                </script>
+               <!-- <script type="text/javascript">
+                        //<!CDATA[
+                        var bodyBgs = [];
+                        bodyBgs[0] = "template/cms/portal/img/1.png";
+                        bodyBgs[1] = "template/cms/portal/img/2.png";
+                        bodyBgs[2] = "template/cms/portal/img/3.png";
+                        bodyBgs[3] = "template/cms/portal/img/4.png";
+                        bodyBgs[4] = "template/cms/portal/img/5.png";
+
+                        var randomBgIndex = Math.round( Math.random() * 4 );
+                        //输出随机的背景图
+                        document.write('<img style="max-height: 340px;" src="' + bodyBgs[randomBgIndex] + '" alt="First slide">');
+                        //]]>
+                    </script>-->
+                    <!-- <img src="template/cms/portal/img/banner_1.png" alt="First slide"> -->
+                    <div class="container">
+                        <div class="carousel-caption" style="bottom: -4%;text-shadow:none;right: 0%">
+                            <div class="quote-info">
+                                <div class="bs-example bs-example-tabs">
+                                    <ul class="nav nav-tabs my-tabs2" role="tablist" style="padding-left: 40px">
+
+                                        <li class="active"><a href="#opacsearch" role="tab" data-toggle="tab">馆藏资源</a></li>
+                                        <li class=""><a href="#dbsearch" role="tab" data-toggle="tab">数据库搜索</a></li>
+                                        <li class=""><a href="#cnkisearch" role="tab" data-toggle="tab">知网检索</a></li>
+                                        <li class=""><a href="#wfsearch" role="tab" data-toggle="tab">万方智搜</a></li>
+                                        <li class=""><a href="#cccsearch" role="tab" data-toggle="tab">CALIS外文期刊</a></li>
+                                        <li class=""><a href="#duxiusearch" role="tab" data-toggle="tab">读秀搜索</a></li>
+
+                                    </ul>
+                                    <div id="myTabContent" class="tab-content container" >
+
+                                        <div id="opacsearch" class="tab-pane fade active in container" style="height: 65px;line-height: 65px;">
+                                            <form  id="searchform" role="form" class="form-inline text-center" target="_blank">
+                                                <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <input type="hidden" name="mylib" >
+                                                    <select class="form-control" name="strSearchType" id="strSearchType">
+                                                        <option value="TITLE" selected="selected">题名</option>
+                                                        <option value="AUTHER">责任者</option>
+                                                        <option value="PUBLISH">出版者</option>
+                                                        <option value="ISBN">ISBN</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <label class="sr-only" for="strText">检索</label>
+                                                    <input type="text" data-options="required:true" class="form-control" name="strText" id="strText" placeholder="馆藏纸本书刊、电子图书检索">
+                                                </div>
+                                                <button type="button" id="opacBtn" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                                            </form>
+
+                                        </div>
+                                        <div id="dbsearch" class="tab-pane fade container" style="height: 65px;line-height: 65px;">
+                                        <form action="esourceController.do?db" id="dbform" role="form" method="post" class="form-inline text-center" target="_blank" >
+
+                                            <div class="form-group col-sm-8" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                <label class="sr-only" for="keyword">检索</label>
+                                                <input type="text" class="form-control" name="keyword" id="keyword" placeholder="搜索我馆购买、自建、试用数据库">
+                                            </div>
+                                            <button type="submit" id="dbBtn" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                                            <input type="hidden" name="page" value="dblist">
+                                            <input type="hidden" name="siteCode" value="portal">
+                                        </form>
+                                    </div>
+                                        <div id="cnkisearch" class="tab-pane container text-center" style="height: 65px;line-height: 65px;">
+                                            <form name="cnkiform" role="form" class="form-inline text-center" target="_blank"
+                                                  method="get" action="http://kns.cnki.net/kns/brief/Default_Result.aspx">
+                                                <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <select class="form-control" name="code">
+                                                        <option value="SCDB">文献</option>
+                                                        <option value="CJFQ">期刊</option>
+                                                        <option value="CDMD">博硕士</option>
+                                                        <option value="CIPD">会议</option>
+                                                        <option value="CCND">报纸</option>
+                                                        <option value="WWDB">外文文献</option>
+                                                        <option value="CYFD">年鉴</option>
+                                                        <option value="WWDB">百科</option>
+                                                        <option value="CRDD">词典</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <label class="sr-only" for="strText">检索</label>
+                                                    <input name="kw"  class="form-control" placeholder="中国知网CNKI搜索" type="text">
+                                                    <input  type="hidden" name="korder" value="0">
+                                                    <input  type="hidden" name="sel" value="1">
+
+                                                </div>
+                                                <button type="submit" id="cnkiBtn" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                                            </form>
+                                        </div>
+                                        <div id="wfsearch" class="tab-pane container text-center" style="height: 65px;line-height: 65px;">
+                                            <form name="wfform" role="form" class="form-inline text-center" target="_blank"
+                                                  method="get" action="http://www.wanfangdata.com.cn/search/searchList.do">
+                                                <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <select class="form-control" name="searchType">
+                                                        <option value="all">全部</option>
+                                                        <option value="perio">期刊</option>
+                                                        <option value="degree">学位</option>
+                                                        <option value="conference">会议</option>
+                                                        <option value="patent">专利</option>
+                                                        <option value="tech">科技报告</option>
+                                                        <option value="tech_result">成果</option>
+                                                        <option value="standards">标准</option>
+                                                        <option value="legislations">法规</option>
+                                                        <option value="gazetteers">地方志</option>
+                                                        <option value="video">视频</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <label class="sr-only" for="strText">检索</label>
+                                                    <input name="searchWord"  class="form-control" placeholder="万方搜索" type="text">
+                                                    <input  type="hidden" name="pageSize" value="20">
+                                                    <input  type="hidden" name="showType" value="detail">
+
+                                                </div>
+                                                <button type="submit" id="wfBtn" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                                            </form>
+                                        </div>
+
+                                        <div id="cccsearch" class="tab-pane container text-center" style="height: 65px;line-height: 65px;">
+                                            <form name="cccform" role="form" class="form-inline text-center" target="_blank"
+                                                  method="get" action="http://ccc.calis.edu.cn/result.php">
+                                                <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <select class="form-control" name="from">
+                                                        <option value="0">篇 名</option>
+                                                        <option value="2">作 者</option>
+                                                        <option value="1">刊 名</option>
+                                                        <option value="4">ISSN</option>
+                                                        <option value="3">全 面</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <label class="sr-only" for="strText">检索</label>
+                                                    <input name="at"  class="form-control" placeholder="外文学术期刊一站式搜索" type="text">
+                                                </div>
+                                                <button type="submit" id="cccBtn" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                                            </form>
+                                        </div>
+
+                                        <div id="duxiusearch" class="tab-pane container text-center" style="height: 65px; line-height: 65px; padding: 0px 0 0;background-color: #FFFFFF" >
+                                            <!-- <iframe allowTransparency="true" id="duxiuframe12" border="0" vspace="0" hspace="0" marginwidth="0" marginheight="0" framespacing="0" frameborder="0" scrolling="no" width="360" height="40" src="http://www.duxiu.com/pop/isearch.jsp?style=12&sw=%CA%E4%C8%EB%BC%EC%CB%F7%B4%CA"></iframe> -->
+                                            <div role="form" class="form-inline text-center">
+                                                <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <select class="form-control js-duxiu-language"  style="width: 80px;">
+                                                        <option value="cn">中文</option>
+                                                        <option value="en">外文</option>
+                                                    </select>
+                                                    <!-- 中文下拉框 -->
+                                                    <select class="form-control js-duxiu-select-cn" style="width: 100px;">
+                                                        <option value="search">图书</option>
+                                                        <option value="searchJour">期刊</option>
+                                                        <option value="searchNP">报纸</option>
+                                                        <option value="searchThesis">学位论文</option>
+                                                        <option value="searchCP">会议论文</option>
+                                                    </select>
+                                                    <!-- 外文下拉框 -->
+                                                    <select class="form-control js-duxiu-select-en" style="display: none; width: 100px;">
+                                                        <option value="searchFBook">图书</option>
+                                                        <option value="searchFJour">期刊</option>
+                                                        <option value="searchFThesis">学位论文</option>
+                                                        <option value="searchFCP">会议论文</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                                    <label class="sr-only" for="">检索</label>
+                                                    <input class="form-control" id="duxiuText" placeholder="请输入关键字" type="text">
+                                                </div>
+                                                <button type="button" id="duxiuBtn" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                                                &nbsp;&nbsp;<a href="http://www.duxiu.com/more.jsp" target="_blank">更多</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                    </div>
+                </div>
+                <div style="height: 80px;margin-left: -15px;margin-right: -15px;background-color: #FFF;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row show-grid visible-sm visible-xs">
+    <div class="col-xs-12">
+        <div class="quote-info">
+            <div class="bs-example bs-example-tabs">
+                <ul class="nav nav-tabs" style="color: white;" role="tablist">
+                    <li class="active"><a href="#opacsearch1" role="tab" data-toggle="tab">馆藏资源</a></li>
+                    <li class=""><a href="#dbsearch1" role="tab" data-toggle="tab">数据库搜索</a></li>
+                    <li class=""><a href="#cnkisearch1" role="tab" data-toggle="tab">知网检索</a></li>
+                    <li class=""><a href="#wfsearch1" role="tab" data-toggle="tab">万方智搜</a></li>
+                    <li class=""><a href="#cccsearch1" role="tab" data-toggle="tab">外文期刊</a></li>
+                    <li class=""><a href="#duxiusearch1" role="tab" data-toggle="tab">读秀搜索</a></li>
+
+                </ul>
+                <div id="myTabContent1" class="tab-content container" style="padding: 10px 0px;background-color: white;">
+
+                    <div id="opacsearch1" class="tab-pane fade active in container">
+                        <form action="" id="searchform1" role="form"
+                        class="form-inline text-center" target="_blank">
+                        <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                            <select class="form-control" name="strSearchType1" id="strSearchType1">
+                                <option value="TITLE" selected="selected">题名</option>
+                                <option value="AUTHER">责任者</option>
+                                <option value="PUBLISH">出版者</option>
+                                <option value="ISBN">ISBN</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                            <label class="sr-only" for="strText">检索</label>
+                            <input type="text" class="form-control" name="strText1" id="strText1" placeholder="请输入关键字">
+                        </div>
+                        <button type="button" id="opacBtn1" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                        </form>
+                    </div>
+
+
+                    <div id="dbsearch1" class="tab-pane fade container">
+                       <form action="esourceController.do?db" id="dbform1" role="form" method="post" class="form-inline text-center" target="_blank" >
+
+                      <div class="form-group col-sm-8" style="padding-right: 0px;padding-left:0px;float: none;">
+                         <label class="sr-only" for="keyword">检索</label>
+                         <input type="text" class="form-control" name="keyword"  placeholder="请输入关键字">
+                      </div>
+                          <button type="submit" id="dbBtn1" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                           <input type="hidden" name="page" value="dblist">
+                           <input type="hidden" name="siteCode" value="portal">
+                        </form>
+                     </div>
+                    <div id="cnkisearch1" class="tab-pane container text-center">
+                        <form name="cnkiform1" role="form" class="form-inline text-center" target="_blank"
+                              method="get" action="http://kns.cnki.net/kns/brief/Default_Result.aspx">
+                            <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <select class="form-control" name="code">
+                                    <option value="SCDB">文献</option>
+                                    <option value="CJFQ">期刊</option>
+                                    <option value="CDMD">博硕士</option>
+                                    <option value="CIPD">会议</option>
+                                    <option value="CCND">报纸</option>
+                                    <option value="WWDB">外文文献</option>
+                                    <option value="CYFD">年鉴</option>
+                                    <option value="WWDB">百科</option>
+                                    <option value="CRDD">词典</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <label class="sr-only" for="strText">检索</label>
+                                <input name="kw"  class="form-control" placeholder="中国知网CNKI搜索" type="text">
+                                <input  type="hidden" name="korder" value="0">
+                                <input  type="hidden" name="sel" value="1">
+
+                            </div>
+                            <button type="submit" id="cnkiBtn1" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                        </form>
+                    </div>
+                    <div id="wfsearch1" class="tab-pane container text-center">
+                        <form name="wfform1" role="form" class="form-inline text-center" target="_blank"
+                              method="get" action="http://www.wanfangdata.com.cn/search/searchList.do">
+                            <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <select class="form-control" name="searchType">
+                                    <option value="all">全部</option>
+                                    <option value="perio">期刊</option>
+                                    <option value="degree">学位</option>
+                                    <option value="conference">会议</option>
+                                    <option value="patent">专利</option>
+                                    <option value="tech">科技报告</option>
+                                    <option value="tech_result">成果</option>
+                                    <option value="standards">标准</option>
+                                    <option value="legislations">法规</option>
+                                    <option value="gazetteers">地方志</option>
+                                    <option value="video">视频</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <label class="sr-only" for="strText">检索</label>
+                                <input name="searchWord"  class="form-control" placeholder="万方搜索" type="text">
+                                <input  type="hidden" name="pageSize" value="20">
+                                <input  type="hidden" name="showType" value="detail">
+
+                            </div>
+                            <button type="submit" id="wfBtn1" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                        </form>
+                    </div>
+
+                    <div id="cccsearch1" class="tab-pane container text-center">
+                        <form name="cccform1" role="form" class="form-inline text-center" target="_blank"
+                              method="get" action="http://ccc.calis.edu.cn/result.php">
+                            <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <select class="form-control" name="from">
+                                    <option value="0">篇 名</option>
+                                    <option value="2">作 者</option>
+                                    <option value="1">刊 名</option>
+                                    <option value="4">ISSN</option>
+                                    <option value="3">全 面</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <label class="sr-only" for="strText">检索</label>
+                                <input name="at"  class="form-control" placeholder="外文学术期刊一站式搜索" type="text">
+                            </div>
+                            <button type="submit" id="cccBtn1" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                        </form>
+                    </div>
+
+                    <div id="duxiusearch1" class="tab-pane container text-center">
+                        <div name="" role="form" class="form-inline text-center" target="_blank"action="">
+                            <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <select class="form-control js-duxiu1-language">
+                                    <option value="cn">中文</option>
+                                    <option value="en">外文</option>
+                                </select>
+                                <!-- 中文下拉框 -->
+                                <select class="form-control js-duxiu1-select-cn">
+                                    <option value="search">图书</option>
+                                    <option value="searchJour">期刊</option>
+                                    <option value="searchNP">报纸</option>
+                                    <option value="searchThesis">学位论文</option>
+                                    <option value="searchCP">会议论文</option>
+                                </select>
+                                <!-- 外文下拉框 -->
+                                <select class="form-control js-duxiu1-select-en hidden">
+                                    <option value="searchFBook">图书</option>
+                                    <option value="searchFJour">期刊</option>
+                                    <option value="searchFThesis">学位论文</option>
+                                    <option value="searchFCP">会议论文</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                <label class="sr-only" for="">检索</label>
+                                <input class="form-control" id="duxiuText1" placeholder="请输入关键字" type="text">
+                            </div>
+                            <button type="button" id="duxiuBtn1" class="btn btn-mydefault"><i class="icon-search"></i> 搜索</button>
+                            &nbsp;&nbsp;<a href="http://www.duxiu.com/more.jsp" target="_blank">更多</a>
+                        </div>
+                    </div>
+
+                </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-lg-4 col-md-12 col-sm-12">
+        <div class="panel panel-primary " style="border-color: #fff;border-radius: 10px;overflow: hidden;">
+            <div class="bs-example bs-example-tabs">
+                <ul class="nav nav-tabs my-tabs" style="background-color: #f0f0f0;" role="tablist">
+                    <li class="active" style="width: 33.3%;"><a href="#gonggao" role="tab" data-toggle="tab">新闻公告</a></li>
+                    <li class="" style="width: 33.3%;"><a href="#ziyuan" role="tab" data-toggle="tab">资源动态</a></li>
+                    <li class="" style="width: 33.3%;"><a href="#haoshu" role="tab" data-toggle="tab">好书推荐</a></li>
+
+                </ul>
+                <div id="myTabContent3" class="tab-content" style="min-height: 230px;padding: 10px 0 0 6px;">
+
+                    <div class="tab-pane fade active in container" id="gonggao">
+                        <ul class="width:322px;line-height: 18px;" style="list-style: none;">
+                            <!-- cms_article_list文章列表，参数：menuid（文章栏目id）、p（页数）rows(文章条数) type（是否列出子辈的文章 Y是,N否）pic(Y图片新闻，N非图片新闻, 默认是所有新闻)-->
+                            <@cms_article_list menuid="4028b88150c711330150c7295b5e0012" p="1" rows="6" type="Y" pic="N">
+                            <#list tag_article_list as article>
+                         <li class="news-item">
+                            <span class="item-meta meta-title">
+                              <a href="cmsController.do?goPage&page=article&siteCode=portal&menuid=${article.columnId}&articleid=${article.id}">${article.title}</a>
+                             </span>
+                                    <span class="item-meta meta-time">
+                                ${article.createDate?string("MM-dd")}
+                            </span>
+                         </li>
+
+                            </#list>
+                        </@cms_article_list>
+                        </ul>
+                        <div style="height: 28px;float: right;">
+                            <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88150c711330150c7295b5e0012" target="_blank">更多</a>
+                        </div>
+                     </div>
+
+
+                    <div class="tab-pane fade container list" id="ziyuan">
+                        <ul class="width:322px;line-height: 18px;" style="list-style: none;">
+                            <!-- cms_article_list文章列表，参数：menuid（文章栏目id）、p（页数）rows(文章条数) type（是否列出子辈的文章 Y是,N否）pic(Y图片新闻，N非图片新闻, 默认是所有新闻)-->
+                            <@cms_article_list menuid="4028b88150c711330150c72a24530014" p="1" rows="6" type="Y" pic="N">
+                            <#list tag_article_list as article>
+                                <li class="news-item">
+                            <span class="item-meta meta-title">
+                              <a href="cmsController.do?goPage&page=article&siteCode=portal&menuid=${article.columnId}&articleid=${article.id}">${article.title}</a>
+                             </span>
+                                    <span class="item-meta meta-time">
+                                ${article.createDate?string("MM-dd")}
+                            </span>
+                                </li>
+
+                            </#list>
+                        </@cms_article_list>
+                        </ul>
+                        <div style="height: 28px;float: right;">
+                            <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88150c711330150c72a24530014" target="_blank">更多</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade container list" id="haoshu">
+                        <ul class="width:322px;line-height: 18px;" style="list-style: none;">
+                            <!-- cms_article_list文章列表，参数：menuid（文章栏目id）、p（页数）rows(文章条数) type（是否列出子辈的文章 Y是,N否）pic(Y图片新闻，N非图片新闻, 默认是所有新闻)-->
+                            <@cms_article_list menuid="4af42ee36067649801606c326746035c" p="1" rows="6" type="Y" pic="N">
+                            <#list tag_article_list as article>
+                                <li class="news-item">
+                            <span class="item-meta meta-title">
+                              <a href="cmsController.do?goPage&page=article&siteCode=portal&menuid=${article.columnId}&articleid=${article.id}">${article.title}</a>
+                             </span>
+                                    <span class="item-meta meta-time">
+                                ${article.createDate?string("MM-dd")}
+                            </span>
+                                </li>
+
+                            </#list>
+                        </@cms_article_list>
+                        </ul>
+                        <div style="height: 28px;float: right;">
+                            <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee36067649801606c326746035c" target="_blank">更多</a>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="col-lg-8 col-md-12 col-sm-12">
+    <div class="panel panel-primary" style="border-color: #fff;border-radius: 10px;overflow: hidden;">
+        <div class="bs-example bs-example-tabs">
+            <ul class="nav nav-tabs my-tabs" style="background-color: #f0f0f0;" role="tablist">
+                <li class="active" style="width: 15%;"><a href="#home" role="tab" data-toggle="tab">常用资源</a></li>
+                <li class="" style="width: 15%;"><a href="#purple_read" role="tab" data-toggle="tab">读者服务</a></li>
+                <li class="" style="width: 25%;"><a href="#link" role="tab" data-toggle="tab">文化活动与阅读推广</a></li>
+            </ul>
+            <div id="myTabContent2" class="tab-content" style="min-height: 240px;">
+                <div class="tab-pane fade active in container" id="home">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                            <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1470" target="_blank"
+                               class="thumbnail text-center" title="中国期刊网">
+                                <i style="background-position: 0px -771px;"></i>
+                                <p><small>中国期刊网</small></p>
+                            </a>
+                        </div>
+                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                        <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1472" target="_blank"
+                        class="thumbnail text-center" title="万方数据库">
+                            <img src="template/cms/portal/img/wffl.png">
+                        <p><small>万方数据库</small></p>
+                    </a>
+                </div>
+                        <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                            <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1498" target="_blank"
+                               class="thumbnail text-center" title="超星期刊">
+                                <img src="template/cms/portal/img/cxqk.png">
+                                <p><small>超星期刊</small></p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                            <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1471" target="_blank"
+                               class="thumbnail text-center" title="超星电子图书">
+                                <img src="template/cms/portal/img/cxdzs.png">
+                                <p><small>超星电子图书</small></p>
+                            </a>
+                        </div>
+        <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+            <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1494"
+            class="thumbnail text-center" title="51CTO学院">
+                <img src="template/cms/portal/img/51CTO.png">
+            <p><small>51CTO学院</small></p>
+        </a>
+    </div>
+    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+        <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1479"
+        class="thumbnail text-center" title="新东方多媒体库">
+        <i style="background-position: 0px -985px;"></i>
+        <p><small>新东方多媒体库</small></p>
+    </a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1481" target="_blank"
+    class="thumbnail text-center" title="爱迪科森职业库">
+        <img src="template/cms/portal/img/adks.png">
+    <p><small>爱迪科森职业库</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1495" target="_blank"
+    class="thumbnail text-center" title="云随书光盘">
+    <i style="background-position: -342px -1199px;"></i>
+    <p><small>云随书光盘</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1474" target="_blank"
+    class="thumbnail text-center" title="超星名师讲坛">
+        <img src="template/cms/portal/img/cxmsjt.png">
+    <p><small>超星名师讲坛</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1475" target="_blank"
+    class="thumbnail text-center" title="万方科普讲座视频">
+        <img src="template/cms/portal/img/wfkp.png">
+    <p><small>万方科普讲座视频</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=1478" target="_blank"
+    class="thumbnail text-center" title="万方企业信息库">
+        <img src="template/cms/portal/img/wfqy.png">
+    <p><small>万方企业信息库</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="esourceController.do?db&page=db&siteCode=portal#cndb"
+    class="thumbnail text-center" title="更多链接">
+    <i style="background-position: 0px -1306px;"></i>
+    <p><small>更多</small></p>
+</a>
+</div>
+</div>
+</div>
+<div class="tab-pane fade container" id="link">
+    <div class="row">
+
+    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+        <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee35f7049c9015ffb98f6576b83"
+        class="thumbnail text-center" title="读书节">
+        <i style="background-position: -457px -234px;"></i>
+        <p><small>读书节</small></p>
+    </a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee35f7049c9015ffb9a43266b95"
+    class="thumbnail text-center" title="花溪文澜">
+    <i style="background-position: -228px -343px;"></i>
+    <p><small>花溪文澜</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=ff80808155b6ee5101575112c5481196"
+    class="thumbnail text-center" title="信息参考">
+    <i style="background-position: -457px -771px;"></i>
+    <p><small>信息参考</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88163ee04160163f15e1d7d002e"
+    class="thumbnail text-center" title="新生入馆教育">
+    <i style="background-position: -457px -343px;"></i>
+    <p><small>新生入馆教育</small></p>
+</a>
+</div>
+        <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+            <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88163ee04160163f15e96300030"
+               class="thumbnail text-center" title="大学生图情服务中心">
+                <i style="background-position: -228px -557px;"></i>
+                <p><small>大学生图情服务中心</small></p>
+            </a>
+        </div>
+</div>
+</div>
+<div class="tab-pane fade container" id="purple_read">
+    <div class="row">
+        <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+            <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88150c711330150c7447c640027"
+            class="thumbnail text-center" title="原文传递">
+            <i style="background-position: -342px -128px;"></i>
+            <p><small>原文传递</small></p>
+        </a>
+    </div>
+    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+        <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88150c711330150c745b6a0002b"
+        class="thumbnail text-center" title="检索证明">
+        <i style="background-position: -342px -234px;"></i>
+        <p><small>参考咨询</small></p>
+    </a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=ff80808155b6ee5101575111eda71194"
+    class="thumbnail text-center" title="读者培训">
+    <i style="background-position: -342px -343px;"></i>
+    <p><small>读者培训</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88150c711330150c75995b50032"
+    class="thumbnail text-center" title="文献检索课">
+    <i style="background-position: -342px -450px;"></i>
+    <p><small>文献检索课</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee36067649801606c31b5680358"
+    class="thumbnail text-center" title="新书推荐">
+    <i style="background-position: -342px -557px;"></i>
+    <p><small>新书推荐</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee35f7049c9015ffb9824056b6d"
+    class="thumbnail text-center" title="读者荐购">
+    <i style="background-position: -342px -664px;"></i>
+    <p><small>读者荐购</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee35f7049c9015ffb6d067e6a84"
+    class="thumbnail text-center" title="文献统计">
+    <i style="background-position: -342px -771px;"></i>
+    <p><small>文献统计</small></p>
+</a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88163ed238a0163ede7812b00f9"
+        class="thumbnail text-center" title="借阅规则">
+        <i style="background-position: -342px -878px;"></i>
+        <p><small>借阅规则</small></p>
+    </a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4028b88150c711330150c76f2d43003f"
+        class="thumbnail text-center" title="证件办理">
+        <i style="background-position: -342px -985px;"></i>
+        <p><small>证件办理</small></p>
+    </a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee36067649801606c3110670356"
+        class="thumbnail text-center" title="自助借还">
+        <i style="background-position: -342px -1091px;"></i>
+        <p><small>借阅排行</small></p>
+    </a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=ff80808157c219dc015877321fbb0dd8"
+        class="thumbnail text-center" title="图书捐赠">
+        <i style="background-position: -114px -664px;"></i>
+        <p><small>图书捐赠</small></p>
+    </a>
+</div>
+<div class="col-sm-4 col-md-2 col-xs-6 appitem">
+    <a href="cmsController.do?goPage&page=menu&siteCode=portal&menuid=4af42ee35f7049c9015ffb6318116a3a"
+        class="thumbnail text-center" title="书刊导读">
+        <i style="background-position: -342px -1306px;"></i>
+        <p><small>中图分类法</small></p>
+    </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 临时添加公告栏 -->
+<div class="row" style="display: none;">
+  <div class="col-lg-4 col-md-12" style="">
+    <div style="height: 300px; overflow:hidden;background-color: #FFF; border-radius: 10px;">
+      <h4 style="background-color: #f0f0f0;margin: 0;line-height: 2;text-align: center;">title</h4>
+      <p style="padding: 5px 10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-12" style="">
+    <div style="height: 300px; overflow:hidden;background-color: #FFF; border-radius: 10px;">
+      <h4 style="background-color: #f0f0f0;margin: 0;line-height: 2;text-align: center;">title</h4>
+      <p style="padding: 5px 10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-12" style="">
+    <div style="height: 300px; overflow:hidden;background-color: #FFF; border-radius: 10px;">
+      <h4 style="background-color: #f0f0f0;margin: 0;line-height: 2;text-align: center;">title</h4>
+      <p style="padding: 5px 10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+</div>
+</div>
+<script src="template/cms/portal/js/discover.js"></script>
+<script src="template/cms/portal/js/jquery.js"></script>
+<!--container end-->
+<script type="text/javascript">
+    $(function(){
+        $('.bxslider_ad').bxSlider({
+            auto:true,
+            pager:false
+        });
+        $('#weixin').popover();
+
+
+        $("#opacBtn").click(function () {
+            var url = "http://192.168.0.50/web/MakeIntert.aspx"
+            if($("#strText").val() == ""){
+                alert("请输入检索词");
+            }else{
+                var strSearchType =$("#strSearchType").val();
+                url = url+"?"+strSearchType+"="+$("#strText").val();
+                window.open(url, '_blank') ;
+            }
+        });
+
+        $("#opacBtn1").click(function () {
+            var url = "http://192.168.0.50/web/MakeIntert.aspx"
+            if($("#strText1").val() == ""){
+                alert("请输入检索词");
+            }else{
+                var strSearchType =$("#strSearchType1").val();
+                url = url+"?"+strSearchType+"="+$("#strText1").val();
+                window.open(url, '_blank') ;
+            }
+        });
+
+        /* 读秀搜索 */
+        $('.js-duxiu-language').change(function(){
+            if( $('.js-duxiu-language option:checked').val() == 'cn' ) {
+                $('.js-duxiu-select-cn').show();
+                $('.js-duxiu-select-en').hide();
+            } else {
+                $('.js-duxiu-select-cn').hide();
+                $('.js-duxiu-select-en').show();
+            }
+        });
+        $("#duxiuBtn").click(function () {
+            if($("#duxiuText").val() == "") {
+                alert("请输入检索词");
+                return;
+            }
+            var channel = '', sw = '';
+            $('.js-duxiu-language option:checked').val() == 'cn' ? ( channel = $('.js-duxiu-select-cn option:checked').val() )
+                    : ( channel = $('.js-duxiu-select-en option:checked').val() );
+            sw = $("#duxiuText").val();
+            window.open('http://www.duxiu.com/gosearch.jsp?channel=' + channel + '&ecode=utf-8&sw=' + sw + '&Field=all', '_blank') ;
+        });
+        $("#duxiuText").keyup(function(event) {
+            if(event.keyCode == 13) {
+                if($("#duxiuText").val() == "") {
+                    alert("请输入检索词");
+                    return;
+                }
+                var channel = '', sw = '';
+                $('.js-duxiu-language option:checked').val() == 'cn' ? ( channel = $('.js-duxiu-select-cn option:checked').val() )
+                        : ( channel = $('.js-duxiu-select-en option:checked').val() );
+                sw = $("#duxiuText").val();
+                window.open('http://www.duxiu.com/gosearch.jsp?channel=' + channel + '&ecode=utf-8&sw=' + sw + '&Field=all', '_blank') ;
+            }
+        })
+
+        $('.js-duxiu1-language').change(function(){
+            if( $('.js-duxiu1-language option:checked').val() == 'cn' ) {
+                $('.js-duxiu1-select-cn').show();
+                $('.js-duxiu1-select-en').hide();
+            } else {
+                $('.js-duxiu1-select-cn').hide();
+                $('.js-duxiu1-select-en').show();
+            }
+        });
+        $("#duxiuBtn1").click(function () {
+            if($("#duxiuText1").val() == "") {
+                alert("请输入检索词");
+                return;
+            }
+            var channel = '', sw = '';
+            $('.js-duxiu1-language option:checked').val() == 'cn' ? ( channel = $('.js-duxiu1-select-cn option:checked').val() )
+                    : ( channel = $('.js-duxiu1-select-en option:checked').val() );
+            sw = $("#duxiuText1").val();
+            window.open('http://www.duxiu.com/gosearch.jsp?channel=' + channel + '&ecode=utf-8&sw=' + sw + '&Field=all', '_blank') ;
+        });
+        $("#duxiuText1").keyup(function(event) {
+            if(event.keyCode == 13) {
+                if($("#duxiuText1").val() == "") {
+                    alert("请输入检索词");
+                    return;
+                }
+                var channel = '', sw = '';
+                $('.js-duxiu1-language option:checked').val() == 'cn' ? ( channel = $('.js-duxiu1-select-cn option:checked').val() )
+                        : ( channel = $('.js-duxiu1-select-en option:checked').val() );
+                sw = $("#duxiuText1").val();
+                window.open('http://www.duxiu.com/gosearch.jsp?channel=' + channel + '&ecode=utf-8&sw=' + sw + '&Field=all', '_blank') ;
+            }
+        })
+    });
+</script>
+
+
+<@cms_log ip="${Data.ip}" logpage="首页index" logtype="web" sitecode="${Data.sitecode}" >
+
+</@cms_log>
+
+</@cms_site>
+<#include "footer.html">

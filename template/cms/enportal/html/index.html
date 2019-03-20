@@ -1,0 +1,502 @@
+<#include "header.html">
+<style>
+.bx-wrapper .bx-viewport {
+	-moz-box-shadow: 0 0 0px #ccc;
+	-webkit-box-shadow: 0 0 0px #ccc;
+	box-shadow: 0 0 0px #ccc;
+	left: 0px;
+}
+</style>
+    <@cms_site sitecode="enportal">
+    <!--浮动广告 -->
+    <SCRIPT type=text/javascript>
+        function addEvent(obj,evtType,func,cap){
+            cap=cap||false;
+            if(obj.addEventListener){
+                obj.addEventListener(evtType,func,cap);
+                return true;
+            }else if(obj.attachEvent){
+                if(cap){
+                    obj.setCapture();
+                    return true;
+                }else{
+                    return obj.attachEvent("on" + evtType,func);
+                }
+            }else{
+                return false;
+            }
+        }
+        function getPageScroll(){
+            var xScroll,yScroll;
+            if (self.pageXOffset) {
+                xScroll = self.pageXOffset;
+            } else if (document.documentElement && document.documentElement.scrollLeft){
+                xScroll = document.documentElement.scrollLeft;
+            } else if (document.body) {
+                xScroll = document.body.scrollLeft;
+            }
+            if (self.pageYOffset) {
+                yScroll = self.pageYOffset;
+            } else if (document.documentElement && document.documentElement.scrollTop){
+                yScroll = document.documentElement.scrollTop;
+            } else if (document.body) {
+                yScroll = document.body.scrollTop;
+            }
+            arrayPageScroll = new Array(xScroll,yScroll);
+            return arrayPageScroll;
+        }
+        function GetPageSize(){
+            var xScroll, yScroll;
+            if (window.innerHeight && window.scrollMaxY) {
+                xScroll = document.body.scrollWidth;
+                yScroll = window.innerHeight + window.scrollMaxY;
+            } else if (document.body.scrollHeight > document.body.offsetHeight){
+                xScroll = document.body.scrollWidth;
+                yScroll = document.body.scrollHeight;
+            } else {
+                xScroll = document.body.offsetWidth;
+                yScroll = document.body.offsetHeight;
+            }
+            var windowWidth, windowHeight;
+            if (self.innerHeight) {
+                windowWidth = self.innerWidth;
+                windowHeight = self.innerHeight;
+            } else if (document.documentElement && document.documentElement.clientHeight) {
+                windowWidth = document.documentElement.clientWidth;
+                windowHeight = document.documentElement.clientHeight;
+            } else if (document.body) {
+                windowWidth = document.body.clientWidth;
+                windowHeight = document.body.clientHeight;
+            }
+            if(yScroll < windowHeight){
+                pageHeight = windowHeight;
+            } else {
+                pageHeight = yScroll;
+            }
+            if(xScroll < windowWidth){
+                pageWidth = windowWidth;
+            } else {
+                pageWidth = xScroll;
+            }
+            arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight)
+            return arrayPageSize;
+        }
+
+        var AdMoveConfig=new Object();
+        AdMoveConfig.IsInitialized=false;
+        AdMoveConfig.ScrollX=0;
+        AdMoveConfig.ScrollY=0;
+        AdMoveConfig.MoveWidth=0;
+        AdMoveConfig.MoveHeight=0;
+        AdMoveConfig.Resize=function(){
+            var winsize=GetPageSize();
+            AdMoveConfig.MoveWidth=winsize[2];
+            AdMoveConfig.MoveHeight=winsize[3];
+            AdMoveConfig.Scroll();
+        }
+        AdMoveConfig.Scroll=function(){
+            var winscroll=getPageScroll();
+            AdMoveConfig.ScrollX=winscroll[0];
+            AdMoveConfig.ScrollY=winscroll[1];
+        }
+        addEvent(window,"resize",AdMoveConfig.Resize);
+        addEvent(window,"scroll",AdMoveConfig.Scroll);
+        function AdMove(id){
+            if(!AdMoveConfig.IsInitialized){
+                AdMoveConfig.Resize();
+                AdMoveConfig.IsInitialized=true;
+            }
+            var obj=document.getElementById(id);
+            obj.style.position="absolute";
+            var W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+            var H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+            var x = W*Math.random(),y = H*Math.random();
+            var rad=(Math.random()+1)*Math.PI/6;
+            var kx=Math.sin(rad),ky=Math.cos(rad);
+            var dirx = (Math.random()<0.5?1:-1), diry = (Math.random()<0.5?1:-1);
+            var step = 1;
+            var interval;
+            this.SetLocation=function(vx,vy){x=vx;y=vy;}
+            this.SetDirection=function(vx,vy){dirx=vx;diry=vy;}
+            obj.CustomMethod=function(){
+                obj.style.left = (x + AdMoveConfig.ScrollX) + "px";
+                obj.style.top = (y + AdMoveConfig.ScrollY) + "px";
+                rad=(Math.random()+1)*Math.PI/6;
+                W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+                H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+                x = x + step*kx*dirx;
+                if (x < 0){dirx = 1;x = 0;kx=Math.sin(rad);ky=Math.cos(rad);}
+                if (x > W){dirx = -1;x = W;kx=Math.sin(rad);ky=Math.cos(rad);}
+                y = y + step*ky*diry;
+                if (y < 0){diry = 1;y = 0;kx=Math.sin(rad);ky=Math.cos(rad);}
+                if (y > H){diry = -1;y = H;kx=Math.sin(rad);ky=Math.cos(rad);}
+            }
+            this.Run=function(){
+                var delay = 10;
+                interval=setInterval(obj.CustomMethod,delay);
+                obj.onmouseover=function(){clearInterval(interval);}
+                obj.onmouseout=function(){interval=setInterval(obj.CustomMethod, delay);}
+            }
+        }
+    </SCRIPT>
+    <#if tag_ad.imageName??>
+        <DIV id=ad1 style="Z-INDEX: 1000">
+            <!--漂浮开始-->
+            <A href="${tag_ad.imageName}" target=_blank><IMG src="${tag_ad.imageHref}" width="${tag_ad.accountid}"></A>
+            <!--漂浮结束-->
+        </DIV>
+
+    </#if>
+    <SCRIPT type=text/javascript>
+        var ad1=new AdMove("ad1");
+        ad1.Run();
+        //多组漂浮
+        //var ad1=new AdMove("ad2");
+        //ad2.Run();
+
+    </SCRIPT>
+    <!--container start-->
+    </@cms_site>
+    <div class="container">
+        <div class="row show-grid">
+            <div class="col-ld-7 col-md-6 col-sm-12">
+                <ul class="bxslider_ad col-lg-12">
+                    <!-- cms_article_list文章list，参数：menuid（文章栏目id）、p（页数）、rows(条数)、type（是否列出子辈的文章 Y是,N否）pic(Y图片新闻，N非图片新闻, 默认是所有新闻)-->
+                    <@cms_article_list menuid="4028b88151ec6b770151ec88d1770001" p="1" rows="6" type="Y" pic="Y">
+                    <#list tag_article_list as article>
+                        <li>
+                            <#if article.imageHref??>
+                                    <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=${article.columnId}&articleid=${article.id}"><img style="width:660px;height:280px;" src="${article.imageHref}"></a>
+                            </#if>
+                        </li>
+                    </#list>
+                </@cms_article_list>
+                </ul>
+            </div>
+            <div class="col-ld-5 col-md-6 col-sm-12">
+                <div class="quote-info" style="height: 278px;">
+                    <div class="bs-example bs-example-tabs">
+                        <ul class="nav nav-tabs" style="color: white;" role="tablist">
+                            <li class="active"><a href="#opacsearch" role="tab" data-toggle="tab" style="padding: 8px 10px;">OPAC</a></li>
+                            <li class=""><a href="#foreign" role="tab" data-toggle="tab" style="padding: 8px 10px;">Foreign-language Periodical</a></li>
+                            <li class=""><a href="#er" role="tab" data-toggle="tab" style="padding: 8px 10px;">E-Resource</a></li>
+
+                        </ul>
+                        <div id="myTabContent" class="tab-content container" style="padding: 10px 0px;background-color: white;">
+                            <div id="opacsearch" class="tab-pane fade active in container">
+                                <form action="http://202.116.174.108:8080/opac/openlink.php" id="searchform" role="form" class="form-inline text-center" target="_blank">
+                                    <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                        <select class="form-control" name="strSearchType">
+                                            <option value="title">Title</option>
+                                            <option value="author">Author</option>
+                                            <option value="keyword">Subject</option>
+                                            <option value="isbn">ISBN/ISSN</option>
+                                            <option value="callno">CallNumber</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                        <label class="sr-only" for="strText">Search</label>
+                                        <input type="text" class="form-control" name="strText" id="strText" placeholder="Enter a keyword">
+                                    </div>
+                                    <button type="submit" id="opacBtn" class="btn btn-danger"><i class="icon-search"></i></button>
+                                </form>
+                            </div>
+
+                            <div id="cxsearch" class="tab-pane fade container">
+                                <form action="http://ss.zhizhen.com/s" id="cxform" role="form" class="form-inline text-center" target="_blank">
+                                    <div class="form-group col-sm-6" style="padding-right: 0px;padding-left:0px;float: none;">
+                                        <label class="sr-only" for="strText">Search</label>
+                                        <input type="text" class="form-control" name="sw" id="swtext" placeholder="Please enter a keyword">
+                                    </div>
+                                    <button type="button" id="ccBtn" class="btn btn-danger"><i class="icon-search">EN</i> </button>
+                                    <button type="submit" id="cxBtn" class="btn btn-success"><i class="icon-search">CN</i> </button>
+
+                                </form>
+                            </div>
+                            <div id="foreign" class="tab-pane fade container">
+                                <form action="http://ccc.calis.edu.cn/result.php" id="cccform" method="get" role="form" class="form-inline text-center" target="_blank">
+                                    <div class="form-group" style="padding-right: 0px;padding-left:0px;float: none;">
+                                        <select class="form-control" name="strSearchType">
+                                            <option value="0">Title</option>
+                                            <option value="2">Author</option>
+                                            <option value="1">Serial Title</option>
+                                            <option value="4">ISSN</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-5" style="padding-right: 0px;padding-left:0px;float: none;">
+                                        <label class="sr-only" for="strText">Search</label>
+                                        <input type="text" class="form-control" name="strText" id="strText1" placeholder="Enter a keyword">
+                                    </div>
+                                    <button type="submit" id="opacBtn1" class="btn btn-danger"><i class="icon-search"></i></button>
+                                </form>
+                            </div>
+                            <div id="er" class="tab-pane fade container">
+                                <form action="esourceController.do?db" id="cxform1" method="post" role="form" class="form-inline text-center" target="_blank">
+                                    <div class="form-group col-sm-6" style="padding-right: 0px;padding-left:0px;float: none;">
+                                        <label class="sr-only" for="strText">Search</label>
+                                        <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Please enter a keyword">
+                                    </div>
+                                    <button type="submit" id="dbBtn1" class="btn btn-mydefault""><i class="icon-search">Search</i> </button>
+                                    <input type="hidden" name="page" value="dblist">
+                                    <input type="hidden" name="siteCode" value="enportal">
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;border: 1px solid #fff;padding:0px 10px 10px 10px;" class="visible-lg ">
+                        <h4><i class="icon-user"></i> Interaction</h4>
+                        <a data-trigger="hover" data-placement="left" data-html="true" data-original-title="" data-content="&lt;img src='template/cms/portal/img/hnlibqrcode.png' style='height:200px;'&gt;" title="" data-toggle="popover" href="javascript:void(0);" id="weixin">
+                            <img class="app-60" src="template/cms/enportal/img/weixin.jpg">
+                        </a>
+                        <a target="_blank" href="http://weibo.com/scau1909">
+                            <img class="app-60" src="template/cms/enportal/img/weibo.jpg">
+                        </a>
+                        <a target="_blank" href="cmsController.do?goPage&page=feedbacklist&siteCode=enportal">
+                            <img class="app-60" src="template/cms/enportal/img/feedback.jpg">
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+        <div class="col-ld-4 col-md-4 col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="bs-example bs-example-tabs">
+                        <ul class="nav nav-tabs" style="background-color: #8aaaea;color: white;" role="tablist">
+                            <ul class="nav nav-tabs" style="background-color: #8aaaea;color: white;" role="tablist">
+                                <li class="active"  style="width: 50%;" ><a href="#gonggao" role="tab" data-toggle="tab">News</a></li>
+                                <li class=""  style="width: 50%;"><a href="#ziyuan" role="tab" data-toggle="tab">Resource Note</a></li>
+                            </ul>
+                        </ul>
+                        <div id="myTabContent3" class="tab-content" style="min-height: 227px;padding: 10px 0 0 6px;">
+                            <div class="tab-pane fade active in container list" id="gonggao">
+
+                            </div>
+                            <div class="tab-pane fade container list" id="ziyuan">
+
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+            </div>
+
+            <div class="col-ld-8 col-md-8 col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="bs-example bs-example-tabs">
+                        <ul class="nav nav-tabs" style="background-color: #8aaaea;color: white;" role="tablist">
+                            <ul class="nav nav-tabs" style="background-color: #8aaaea;color: white;" role="tablist">
+                                <li class="active"><a href="#home" role="tab" data-toggle="tab">Resource</a></li>
+                                <li class=""><a href="#profile" role="tab" data-toggle="tab">Services</a></li>
+                                <li class=""><a href="#general_info" role="tab" data-toggle="tab">About Us</a></li>
+                            </ul>
+                        </ul>
+                        <div class="tab-content" style="min-height: 240px;">
+                            <div class="tab-pane fade active in container" id="home">
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dblist&siteCode=enportal&dbrestype=101" class="thumbnail text-center">
+                                            <i class="icon-file-alt icon-48"></i>
+                                            <p><small>E-journal</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dblist&siteCode=enportal&dbrestype=41" class="thumbnail text-center">
+                                            <i class="icon-book icon-48"></i>
+                                            <p><small>Ebook</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="http://202.116.174.108:8080/opac/search.php" class="thumbnail text-center" target="_blank">
+                                            <i class="icon-home icon-48"></i>
+                                            <p><small>OPAC</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dblist&siteCode=enportal&dbrestype=43" class="thumbnail text-center">
+                                            <i class="icon-pencil icon-48"></i>
+                                            <p><small>Dissertation</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dblist&siteCode=enportal&dbrestype=44" class="thumbnail text-center">
+                                            <i class="icon-music icon-48"></i>
+                                            <p><small>Newspaper</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dblist&siteCode=enportal&dbrestype=104" class="thumbnail text-center">
+                                            <i class="icon-thumbs-up icon-48"></i>
+                                            <p><small>Multimedia</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dbdetail&siteCode=enportal&dbid=1398" class="thumbnail text-center">
+                                            <i class="icon-desktop icon-48"></i>
+                                            <p><small>CNKI</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dbdetail&siteCode=enportal&dbid=1406" class="thumbnail text-center">
+                                            <i class="icon-bookmark icon-48"></i>
+                                            <p><small>EI</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dbdetail&siteCode=enportal&dbid=114" class="thumbnail text-center" >
+                                            <i class="icon-globe icon-48"></i>
+                                            <p><small>SCI</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dbdetail&siteCode=enportal&dbid=1288" class="thumbnail text-center">
+                                            <i class="icon-picture icon-48"></i>
+                                            <p><small>Nature</small></p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade container" id="profile">
+                                <div class="row">
+
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c4400af0d1217&articleid=ff8080815c342d2b015c47ba29f9162d" class="thumbnail text-center">
+                                            <i class="icon-credit-card icon-48"></i>
+                                            <p><small>Library Card </small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c44023a171222&articleid=ff8080815c342d2b015c47b98d461627" class="thumbnail text-center">
+                                            <i class="icon-book icon-48"></i>
+                                            <p><small>Borrowing</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c4402aede1224&articleid=ff8080815c342d2b015c47b8970c1621" class="thumbnail text-center">
+                                            <i class="icon-search icon-48"></i>
+                                            <p><small>Reference</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c440332b41228&articleid=ff8080815c342d2b015c47b04df8160d" class="thumbnail text-center">
+                                            <i class="icon-user icon-48"></i>
+                                            <p><small>Training</small></p> <!--用户指引-->
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="http://202.116.174.108:8080/asord/asord_hist.php" class="thumbnail text-center" target="_blank">
+                                            <i class="icon-shopping-cart icon-48"></i>
+                                            <p><small>Suggest A Purchase</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="http://www.th.superlib.net/" class="thumbnail text-center" target="_blank">
+                                            <i class="icon-retweet icon-48"></i>
+                                            <p><small>Interlibrary Loan</small></p><!--读者培训-->
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="esourceController.do?db&page=dbproxy&siteCode=enportal" class="thumbnail text-center">
+                                            <i class="icon-reply icon-48"></i>
+                                            <p><small>Off Campus Access</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c4404afdb1230&articleid=ff8080815c342d2b015c3e454bcb08c6" class="thumbnail text-center">
+                                            <i class="icon-tablet icon-48"></i>
+                                            <p><small>Mobile Library</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c4407ebf71236&articleid=ff8080815c342d2b015c39b8e1be0653" class="thumbnail text-center">
+                                            <i class="icon-rss icon-48"></i>
+                                            <p><small>WIFI</small></p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade container" id="general_info">
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c440ec51b1284&articleid=ff8080815c342d2b015c4445894213d1" class="thumbnail text-center">
+                                            <i class="icon-home icon-48"></i>
+                                            <p><small>Introduction</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c440f63451286&articleid=ff8080815c342d2b015c44417ec813bb" class="thumbnail text-center">
+                                            <i class="icon-time icon-48"></i>
+                                            <p><small>Hours</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c441000541288&articleid=ff8080815c342d2b015c443d00ca1390" class="thumbnail text-center">
+                                            <i class="icon-globe icon-48"></i>
+                                            <p><small>Maps</small></p>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c44113800128a&articleid=ff8080815c342d2b015c443c07d01388" class="thumbnail text-center">
+                                            <i class="icon-comment-alt icon-48"></i>
+                                            <p><small>Helpdesk</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c4411d49c128d&articleid=ff8080815c342d2b015c443925d4136e" class="thumbnail text-center">
+                                            <i class="icon-phone icon-48"></i>
+                                            <p><small>Phone</small></p>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4 col-md-2 col-xs-6 appitem">
+                                        <a href="cmsController.do?goPage&page=article&siteCode=enportal&menuid=ff8080815c342d2b015c441432a01292&articleid=ff8080815c342d2b015c4434fd8f133e" class="thumbnail text-center">
+                                            <i class="icon-check icon-48"></i>
+                                            <p><small>Giving to the Library</small></p>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="template/cms/enportal/js/discover.js"></script>
+     <!--container end-->
+<script type="text/javascript">
+$(function(){
+	 $('.bxslider_ad').bxSlider({
+	 	auto:true,
+	 	pager:false
+	 });
+    $('#discoverBtn').click(function(){
+        //search_index();
+    });
+    $('#opacBtn').click(function(){
+        $('[name=searcharg]').val($('#keyword').val());
+        //$('#searchform').attr('action','/opacSearch.htm').attr('method','get');
+    });
+    $('#weixin').popover();
+});
+   $("#ccBtn").click(function () {
+       var url = "http://scau.summon.serialssolutions.com/search";
+         if($("#swtext").val() == ""){
+           alert("Please Enter A Keyword");
+         }else{
+           url = url+"?s.q="+$("#swtext").val();
+            window.location.href = url;
+    }
+});
+</script>
+<@cms_log ip="${Data.ip}" logpage="首页index" logtype="web" sitecode="${Data.sitecode}" >
+
+</@cms_log>
+<#include "footer.html">

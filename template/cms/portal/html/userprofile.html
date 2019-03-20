@@ -1,0 +1,51 @@
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                        <li><a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a></li>
+                        <li>
+                            <a href="mylibController.do?user&page=user&siteCode=portal">我的图书馆</a>
+                        </li>
+                        <li class="active">个人资料</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <dl class="dl-horizontal dl-2">
+                            <dt>读者证件号</dt>
+                            <dd>${(Data.user.personnelno)!}</dd>
+                            <dt>姓名</dt>
+                            <dd>${(Data.user.accname)!}</dd>
+                            <dt>性别</dt>
+                            <dd>
+                                <#if Data.user.sex=='M'>男</#if>
+                                <#if Data.user.sex=='F'>女</#if>
+                            </dd>
+                            <dt>部门</dt>
+                            <dd>${(Data.user.dept)!} </dd>
+                            <dt>手机</dt>
+                            <dd>${(Data.user.phone)!}</dd>
+                            <dt>Email</dt>
+                            <dd>${(Data.user.email)!}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <@cms_log ip="${Data.ip}" logpage="我的图书馆" logtype="${(Data.user.personnelno)!}" sitecode="${Data.sitecode}" >
+
+             </@cms_log>
+            <#include "sidebar-user.html">
+        </div>
+    </div>
+<#include "footer.html">

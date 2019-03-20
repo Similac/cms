@@ -1,0 +1,160 @@
+<#include "header.html">
+    <section id="content">
+        <section class="section page-heading" style="opacity: 1;padding-top:5px;">
+            <p class="breadcrumb">
+                <a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a> /
+                <a href="esourceController.do?db&page=db&siteCode=portal2">电子资源</a> / 资源详细信息
+            </p>
+            <div class="text-center" style="margin-top: 20px;"><h1>${Data.db.cnname}</h1></div>
+
+        </section>
+        <section class="section full-width-bg gray-bg" style="padding-top: 20px;">
+            <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="panel-body">
+                                    <dl class="dl-horizontal dl-2">
+                                        <dt style="margin-top: 3px;">链接入口</dt>
+                                        <dd>
+                                            <#list Data.dbUrlList as url>
+                                                <div>
+                                                    <label for="txt${url_index+1}">入口 ${url_index+1}: </label>
+                                                    <input name="txt${url_index+1}" value="正在测试......" theme="simple" style="width: 200px;"/>
+                                                    <#if url.urlstate=="1">
+                                                        <a href="${url.url}" target="_blank"> <span class="disabled">[点击进入]</span>
+                                                        </a>
+                                                        <#else>
+                                                            <a href="${url.url}" target="_blank">[点击进入]</a>
+                                                    </#if>
+                                                    <img src="${url.url}123456" width="0" height="0" onerror="auto('${url.url}')"/>
+                                                </div>
+
+                                            </#list>
+                                        </dd>
+                                        <dt>资源类型</dt>
+                                        <dd>${Data.dbRestype.restypename}</dd>
+                                        <dt>使用范围</dt>
+                                        <dd>${Data.dbArealimit.typename}</dd>
+                                        <dt>订购状态</dt>
+                                        <dd>${Data.dbOrderstate.typename}</dd>
+                                        <#if Data.db.trial =="Y">
+                                            <dt>试用截止日期</dt>
+                                            <dd>${Data.db.validtime?string("yyyy-MM-dd")}</dd>
+                                        </#if>
+                                        <dt>详细介绍</dt>
+                                        <dd>${Data.db.detailinfo}</dd>
+
+                                    </dl>
+                                </div>
+                            </div>
+                        <!-- Post Comments -->
+                        <div class="post-comments">
+
+                            <h3 class="animate-onscroll">相关评论</h3>
+
+                            <ul>
+                                <li>
+
+                                    <div class="comment animate-onscroll">
+
+                                        <div class="comment-author">
+                                            <img src="template/cms/portal2/img/testimonials/profile1.jpg" alt="">
+                                            <div class="author-meta">
+                                                <h6>评论标题</h6>
+                                                <div class="comment-meta">
+                                                    <span>姓名</span>
+                                                    <span>2016-06-17 11:45</span>
+                                                    <span><a href="#">回复</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>这里是评论内容</p>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div class="comment animate-onscroll">
+
+                                        <div class="comment-author">
+                                            <img src="template/cms/portal2/img/testimonials/profile1.jpg" alt="">
+                                            <div class="author-meta">
+                                                <h6>评论标题</h6>
+                                                <div class="comment-meta">
+                                                    <span>姓名</span>
+                                                    <span>2016-06-17 11:45</span>
+                                                    <span><a href="#">回复</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>这里是评论内容</p>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div class="comment animate-onscroll">
+
+                                        <div class="comment-author">
+                                            <img src="template/cms/portal2/img/testimonials/profile1.jpg" alt="">
+                                            <div class="author-meta">
+                                                <h6>评论标题</h6>
+                                                <div class="comment-meta">
+                                                    <span>姓名</span>
+                                                    <span>2016-06-17 11:45</span>
+                                                    <span><a href="#">回复</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>这里是评论内容</p>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                            </ul>
+
+                        </div>
+                        <!-- /Post Comments -->
+                    </div>
+
+            </div>
+        </section>
+
+        <!-- Section -->
+        <section class="section full-width-bg gray-bg">
+
+            <div class="row">
+
+            </div>
+        </section>
+        <!-- /Section -->
+    </section>
+
+    <!--container end-->
+    <script type="text/javascript">
+        var tim=1;
+        var b=1;
+        setInterval("tim++",100);
+        function auto(url){
+            if(tim>200)
+            {
+                $("[name=txt"+b+"]").val("连接测试时间");
+            }
+            else
+            {
+                $("[name=txt"+b+"]").val("连接测试时间 "+tim/10+" 秒");
+            }
+            b++;
+        }
+    </script>
+    <#include "footer.html">

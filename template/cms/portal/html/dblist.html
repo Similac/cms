@@ -1,0 +1,79 @@
+
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row mymain">
+            <div class="breadcrumbs mybreadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                        <li><a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a></li>
+                        <li class="active">
+                            电子资源
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <#include "dbsearchbar.html">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="panel panel-primary mypanel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list"></i> 检索结果 ( <#if (Data.dbsubject>0) >${Data.count}  <#else> ${Data.count} </#if>)
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>名称</th>
+                                    <th>获得方式</th>
+                                    <th>资源类型</th>
+                                    <th>点击次数</th>
+                                </tr>
+                                <#list Data.dblist as e>
+                                    <tr>
+                                        <td width="40%">
+                                            <a href="esourceController.do?db&page=dbdetail&siteCode=portal&dbid=${e.id?c}">${e.cnname}</a>
+                                        </td>
+                                        <td>
+                                            <#if e.orderstate =="order_purchase">
+                                              购买
+                                             <#else>试用</#if>
+                                        </td>
+
+                                            <@db_detail dbid="${e.id?c}">
+                                            <td>
+                                                <#list tag_dbrestypelist as typelist>
+                                                    ${typelist.createName}  &nbsp
+                                                </#list>
+                                            </td>
+                                            </@db_detail>
+
+                                        <td>${e.hits}</td>
+                                    </tr>
+                                </#list>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <ul class="pager">
+                              ${Data.pagehtml}
+
+                            </ul>
+                        </div>
+
+                        <@cms_log ip="${Data.ip}" logpage="电子资源列表" logtype="web" sitecode="${Data.sitecode}" >
+
+                    </@cms_log>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--container end-->
+<#include "footer.html">

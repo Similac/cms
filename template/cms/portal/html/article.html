@@ -1,0 +1,41 @@
+<#include "header.html">
+<!--container start-->
+<div id="maincontent" class="container">
+
+    <div class="row mymain">
+        <#include "sidebar-detail.html">
+        <!--blog start-->
+        <@cms_article articleid="${Data.articleid}">
+
+            <div class="col-md-9 ">
+            <#include "topbar.html">
+            <div class="article">
+                    <div class="title">
+                        <h1 class="post-title"><span class="title-highlight">${tag_article.title}</span></h1>
+                        <span style="text-align:center; display:block;">发布时间：${tag_article.createDate?date} 点击次数：${tag_article.viewcount}</span>
+                    </div>
+                    <div align="center">
+                        <img src="${tag_article.imageHref!}" align="center"/>
+                    </div>
+                    <div>
+                        ${tag_article.content}
+                    </div>
+                    <@cms_log ip="${Data.ip}" logpage="文章:${tag_article.title}" logtype="web"
+                    sitecode="${Data.sitecode}" >
+
+                    </@cms_log>
+            </div>
+
+        </div>
+</@cms_article>
+
+    </div>
+    <!--blog end-->
+</div>
+<script src="template/cms/portal/js/jquery.pin.min.js"></script>
+<script src="template/cms/portal/assets/lightbox/js/lightbox.min.js"></script>
+<!--container end-->
+<script type="text/javascript">
+    $("#sidebarPin").pin({containerSelector: "#maincontent", minWidth: 970});
+</script>
+<#include "footer.html">

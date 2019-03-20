@@ -1,0 +1,445 @@
+<#include "header.html">
+		<section id="content">
+			
+			<!-- Section -->
+			<section class="section full-width-bg">
+				
+				<div class="row">
+				
+					<div class="col-md-8 col-sm-6 animate-onscroll" style="min-height: 270px;padding-top: 20px;background-color: #f2f4f9;">
+
+						<div class="tabs">
+
+							<div class="tab-header">
+								<ul>
+									<li class="active-tab"><a href="#opacsearch" role="tab" data-toggle="tab"><h6>馆藏资源</h6></a></li>
+									<li class=""><a href="#duxiusearch" role="tab" data-toggle="tab"><h6>读秀搜索</h6></a></li>
+									<li class=""><a href="#edusearch" role="tab" data-toggle="tab"><h6>e读搜索</h6></a></li>
+									<li class=""><a href="#cccsearch" role="tab" data-toggle="tab"><h6>外文期刊</h6></a></li>
+									<li class=""><a href="#cxsearch" role="tab" data-toggle="tab"><h6>超星发现</h6></a></li>
+									<li class=""><a href="#spissearch" role="tab" data-toggle="tab"><h6>期刊搜索</h6></a></li>
+								</ul>
+							</div>
+
+							<div class="tab-content">
+								<div id="opacsearch" class="tab">
+									<form action="http://202.116.174.108:8080/opac/openlink.php" id="searchform" role="form" class="form-inline" target="_blank">
+										<div class="form-group col-sm-3">
+											<select class="form-control" name="strSearchType">
+												<option value="title">题&nbsp;&nbsp;名</option>
+												<option value="author">责任者</option>
+												<option value="keyword">主题词</option>
+												<option value="isbn">ISBN/ISSN</option>
+												<option value="asordno">订购号</option>
+												<option value="coden">分类号</option>
+												<option value="callno">索书号</option>
+												<option value="publisher">出版社</option>
+												<option value="series">丛书名</option>
+												<option value="tpinyin">题名拼音</option>
+												<option value="apinyin">责任者拼音</option>
+											</select>
+										</div>
+										<div class="form-group col-sm-6">
+											<label class="sr-only" for="strText">检索</label>
+											<input type="text" class="form-control" name="strText" id="strText" placeholder="请输入关键字">
+										</div>
+										<button type="submit" id="opacBtn" class="button big blue" style="padding: 8px 10px;"><i class="icon-search"></i> 搜索</button>
+									</form>
+								</div>
+								<div id="duxiusearch" class="tab" style="padding: 15px 0;display: none;">
+									<iframe allowTransparency="true" id="duxiuframe16" border="0" vspace="0"
+											hspace="0" marginwidth="0" marginheight="0" framespacing="0"
+											frameborder="0" scrolling="no" width="90%"
+											src="template/cms/portal2/duxiu/index.html"></iframe>
+
+								</div>
+								<div id="cxsearch" class="tab" style="display: none;">
+									<form action="http://ss.zhizhen.com/s" id="cxform" role="form" class="form-inline text-center" target="_blank">
+										<div class="form-group col-sm-8" style="padding-right: 0px;padding-left:0px;float: none;">
+											<label class="sr-only" for="strText">检索</label>
+											<input type="text" class="form-control" name="sw" id="swtext" placeholder="请输入关键字">
+										</div>
+										<button type="submit" id="cxBtn" class="button big blue"><i class="icon-search"></i> 搜索</button>
+									</form>
+								</div>
+								<div id="edusearch" class="tab" style="height: 176px;line-height: 75px;display: none;">
+									<iframe allowTransparency="true" id="eduframe12" border="0" vspace="0" hspace="0"
+											framespacing="0" frameborder="0" scrolling="no" src="template/cms/portal2/html/edu.html"></iframe>
+								</div>
+								<div id="cccsearch" class="tab" style="height: 75px;padding: 15px 0;display: none;">
+									<iframe scrolling="no" frameborder="0" src="template/cms/portal2/html/ccc.html" framespacing="0" marginheight="0" marginwidth="0" hspace="0" vspace="0" border="0" id="duxiuframe13" allowtransparency="true"></iframe>
+								</div>
+								<div id="spissearch" class="tab" style="height: 176px;padding: 15px 0;display: none;">
+									<form action="http://www.spischolar.com/list/result" name="searchFrom"  class="form-inline text-center" target="_blank">
+										<h3 style="margin: 0 0 10px 0;"> Spis学术期刊指南试用</h3>
+										<div class="form-group col-sm-2" style="padding-right: 0px;padding-left:0px;float: none;">
+											<label class="sr-only" for="strText">类型</label>
+											<select class="subjectmenu" name="field">
+												<option selected="selected" value="all">全部</option>
+												<option value="title">刊名</option>
+												<option value="issn">ISSN</option>
+												<option value="disciplineName">学科</option>
+											</select>
+										</div>
+										<div class="form-group col-sm-6" style="padding-right: 0px;padding-left:0px;float: none;">
+											<label class="sr-only" for="strText">检索</label>
+											<input type="text" class="form-control" name="value" placeholder="请输入刊名/ISSN/学科名">
+										</div>
+										<button type="submit" class="button big blue"><i class="icon-search"></i> 检索</button>
+										<input type="hidden" name="viewStyle" value="list"/>
+										<input type="hidden" name="limit" value="1"/>
+									</form>
+								</div>
+							</div>
+
+						</div>
+						
+					</div>
+					
+					
+					<div class="col-md-4 col-sm-6 sidebar">
+						
+						<div class="banner-wrapper">
+							<a class="banner animate-onscroll" style="padding-left: 68px;" href="#">
+								<i class="icons icon-news" style="padding-left: 16px;"></i>
+								<h4>新闻动态</h4>
+								<p>点击查看更多新闻</p>
+							</a>
+						</div>
+						
+						<div class="banner-wrapper">
+							<ul class="list arrow-list animate-onscroll">
+								<li><a href="javascript:;">“新东方在线杯”大学生英语口语大赛开赛</a></li>
+								<li><a href="javascript:;">尚唯科技报告资源服务系统开通试用</a></li>
+								<li><a href="javascript:;">讲座：学术性信息收集中的特种文献检索</a></li>
+								<li><a href="javascript:;">“新东方在线杯”大学生英语口语大赛开赛</a></li>
+								<li><a href="javascript:;">尚唯科技报告资源服务系统开通试用</a></li>
+								<li><a href="javascript:;">讲座：学术性信息收集中的特种文献检索</a></li>
+							</ul>
+						</div>
+					</div>
+				
+				</div>
+				
+			</section>
+			<!-- /Section -->
+			
+			<!-- Section -->
+			<section class="section full-width-bg gray-bg">
+				
+				<div class="row">
+				
+					<div class="col-lg-9 col-md-9 col-sm-8">
+						
+						<h3 class="animate-onscroll no-margin-top">图片新闻</h3>
+						
+												<!-- Blog Post -->
+						<div class="banner-rotator animate-onscroll">
+
+							<div class="flexslider banner-rotator-flexslider">
+
+								<ul class="slides">
+
+									<li id="flex_rotator_1">
+										<div class="banner-rotator-content">
+											<h5>Campaign trial</h5>
+											<h2>New York</h2>
+											<span class="date">December 17th</span>
+											<a href="#" class="button big button-arrow">Details</a>
+										</div>
+									</li>
+
+									<li id="flex_rotator_2">
+										<div class="banner-rotator-content">
+											<h5>Campaign trial</h5>
+											<h2>Corden</h2>
+											<span class="date">April 12th</span>
+											<a href="#" class="button big button-arrow">Details</a>
+										</div>
+									</li>
+
+									<li id="flex_rotator_3">
+										<div class="banner-rotator-content">
+											<h5>Campaign trial</h5>
+											<h2>Redhedge</h2>
+											<span class="date">June 27th</span>
+											<a href="#" class="button big button-arrow">Details</a>
+										</div>
+									</li>
+
+								</ul>
+
+							</div>
+
+						</div>
+						<!-- /Blog Post -->						
+						<!-- Owl Carousel -->
+						<div class="owl-carousel-container">
+							
+							<div class="owl-header">
+								
+								<h3 class="animate-onscroll">读者服务</h3>
+								
+								<div class="carousel-arrows animate-onscroll">
+									<span class="left-arrow"><i class="icons icon-left-dir"></i></span>
+									<span class="right-arrow"><i class="icons icon-right-dir"></i></span>
+								</div>
+								
+							</div>
+							
+							<div class="owl-carousel" data-max-items="3">
+										
+								<!-- Owl Item -->
+								<div>
+									
+									<!-- Blog Post -->
+									<div class="blog-post animate-onscroll">
+										
+										<div class="post-image">
+											<img src="template/cms/portal2/img/blog/post2.jpg" alt="">
+										</div>
+										
+										<h4 class="post-title"><a href="blog-single-sidebar.html">Donec porta diam eu massa</a></h4>
+										
+										<div class="post-meta">
+											<span>by <a href="#">admin</a></span>
+											<span>October 01, 2013 11:28AM</span>
+										</div>
+										
+										<p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel.</p>
+										
+										<a href="blog-single-sidebar.html" class="button read-more-button big button-arrow">Read More</a>
+										
+									</div>
+									<!-- /Blog Post -->
+									
+								</div>
+								<!-- /Owl Item -->
+								
+								<!-- Owl Item -->
+								<div>
+									
+									<!-- Blog Post -->
+									<div class="blog-post animate-onscroll">
+										
+										<div class="post-image">
+											<img src="template/cms/portal2/img/blog/post3.jpg" alt="">
+										</div>
+										
+										<h4 class="post-title"><a href="blog-single-sidebar.html">Vestibulum iaculis </a></h4>
+										
+										<div class="post-meta">
+											<span>by <a href="#">admin</a></span>
+											<span>October 01, 2013 11:28AM</span>
+										</div>
+										
+										<p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel.</p>
+										
+										<a href="blog-single-sidebar.html" class="button read-more-button big button-arrow">Read More</a>
+										
+									</div>
+									<!-- /Blog Post -->
+									
+								</div>
+								<!-- /Owl Item -->
+								
+								<!-- Owl Item -->
+								<div>
+									
+									<!-- Blog Post -->
+									<div class="blog-post animate-onscroll">
+										
+										<div class="post-image">
+											<img src="template/cms/portal2/img/blog/post4.jpg" alt="">
+										</div>
+										
+										<h4 class="post-title"><a href="blog-single-sidebar.html">Praesent justo dolor</a></h4>
+										
+										<div class="post-meta">
+											<span>by <a href="#">admin</a></span>
+											<span>October 01, 2013 11:28AM</span>
+										</div>
+										
+										<p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel.</p>
+										
+										<a href="blog-single-sidebar.html" class="button read-more-button big button-arrow">Read More</a>
+										
+									</div>
+									<!-- /Blog Post -->
+									
+								</div>
+								<!-- /Owl Item -->
+								
+								<!-- Owl Item -->
+								<div>
+									
+									<!-- Blog Post -->
+									<div class="blog-post animate-onscroll">
+										
+										<div class="post-image">
+											<img src="template/cms/portal2/img/blog/post2.jpg" alt="">
+										</div>
+										
+										<h4 class="post-title"><a href="blog-single-sidebar.html">Donec porta diam eu massa</a></h4>
+										
+										<div class="post-meta">
+											<span>by <a href="#">admin</a></span>
+											<span>October 01, 2013 11:28AM</span>
+										</div>
+										
+										<p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel.</p>
+										
+										<a href="blog-single-sidebar.html" class="button read-more-button big button-arrow">Read More</a>
+										
+									</div>
+									<!-- /Blog Post -->
+									
+								</div>
+								<!-- /Owl Item -->
+								
+								<!-- Owl Item -->
+								<div>
+									
+									<!-- Blog Post -->
+									<div class="blog-post animate-onscroll">
+										
+										<div class="post-image">
+											<img src="template/cms/portal2/img/blog/post3.jpg" alt="">
+										</div>
+										
+										<h4 class="post-title"><a href="blog-single-sidebar.html">Vestibulum iaculis </a></h4>
+										
+										<div class="post-meta">
+											<span>by <a href="#">admin</a></span>
+											<span>October 01, 2013 11:28AM</span>
+										</div>
+										
+										<p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel.</p>
+										
+										<a href="blog-single-sidebar.html" class="button read-more-button big button-arrow">Read More</a>
+										
+									</div>
+									<!-- /Blog Post -->
+									
+								</div>
+								<!-- /Owl Item -->
+								
+								<!-- Owl Item -->
+								<div>
+									
+									<!-- Blog Post -->
+									<div class="blog-post animate-onscroll">
+										
+										<div class="post-image">
+											<img src="template/cms/portal2/img/blog/post4.jpg" alt="">
+										</div>
+										
+										<h4 class="post-title"><a href="blog-single-sidebar.html">Praesent justo dolor</a></h4>
+										
+										<div class="post-meta">
+											<span>by <a href="#">admin</a></span>
+											<span>October 01, 2013 11:28AM</span>
+										</div>
+										
+										<p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel.</p>
+										
+										<a href="blog-single-sidebar.html" class="button read-more-button big button-arrow">Read More</a>
+										
+									</div>
+									<!-- /Blog Post -->
+									
+								</div>
+								<!-- /Owl Item -->
+							
+							</div>
+						
+						</div>
+						<!-- /Owl Carousel -->						<!-- Banner Rotator -->
+
+						<!-- /Banner Rotator -->						
+						
+					</div>
+					
+					
+					
+					<!-- Sidebar -->
+					<div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+						<!-- Upcoming Events -->
+						<div class="sidebar-box white animate-onscroll">
+							<h3>最新留言</h3>
+							<ul class="upcoming-events">
+
+								<li>
+									<div class="date">
+										<span>
+											<span class="day">25</span>
+											<span class="month">3月</span>
+										</span>
+									</div>
+									
+									<div class="event-content">
+										<h6><a href="event-post-v2.html">图书馆什么时候开馆</a></h6>
+										<ul class="event-meta">
+											<li><i class="icons icon-clock"></i> 9:25</li>
+											<li><i class="icons icon-location"></i> （5）条回复</li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<div class="date">
+										<span>
+											<span class="day">25</span>
+											<span class="month">3月</span>
+										</span>
+									</div>
+
+									<div class="event-content">
+										<h6><a href="event-post-v2.html">图书馆什么时候开馆</a></h6>
+										<ul class="event-meta">
+											<li><i class="icons icon-clock"></i> 9:25</li>
+											<li><i class="icons icon-location"></i> （5）条回复</li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<div class="date">
+										<span>
+											<span class="day">25</span>
+											<span class="month">3月</span>
+										</span>
+									</div>
+
+									<div class="event-content">
+										<h6><a href="event-post-v2.html">图书馆什么时候开馆</a></h6>
+										<ul class="event-meta">
+											<li><i class="icons icon-clock"></i> 9:25</li>
+											<li><i class="icons icon-location"></i> （5）条回复</li>
+										</ul>
+									</div>
+								</li>
+								
+							</ul>
+							<a href="#" class="button transparent button-arrow">更多留言</a>
+						</div>
+						<h3>特别推荐</h3>
+						<!-- /Upcoming Events -->						<!-- Image Banner -->
+						<div class="sidebar-box image-banner animate-onscroll">
+							<a href="issues.html">
+								<img src="template/cms/portal2/img/main-issues.jpg" alt="">
+								<h3>新生入馆教育</h3>
+							</a>
+						</div>
+						<div class="sidebar-box image-banner animate-onscroll">
+							<a href="issues.html">
+								<img src="template/cms/portal2/img/main-issues.jpg" alt="">
+								<h3>毕业季</h3>
+							</a>
+						</div>
+						<!-- /Image Banner -->
+					</div>
+					<!-- /Sidebar -->
+				</div>
+			</section>
+			<!-- /Section -->
+		</section>
+	<#include "footer.html">

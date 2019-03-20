@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="template/cms/portal/img/favicon.png">
+
+    <title>我的图书馆</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="template/cms/portal/css/bootstrap.min.css" rel="stylesheet">
+    <link href="template/cms/portal/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="template/cms/portal/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="template/cms/portal/css/userstyle.css" rel="stylesheet">
+    <link href="template/cms/portal/css/userstyle-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="template/cms/portal/js/html5shiv.js"></script>
+    <script src="template/cms/portal/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="template/cms/portal/js/jquery.js"></script>
+    <script src="template/cms/portal/js/jquery.form.min.js"></script>
+    <script src="template/cms/portal/js/jquery.watermark.js"></script>
+    <style type="text/css">
+        p.error {
+            color: #DE5959;
+        }
+
+        .form-signin input[type="text"].error, .form-signin input[type="password"].error {
+            border-color: #b94a48;
+            color: #b94a48;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        }
+
+        input.error:focus {
+            border-color: #953b39;
+            color: #b94a48;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px
+            #d59392;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+        }
+        #u2 {
+            margin: 100px auto 0;
+            font-family: '微软雅黑';
+            font-weight: 400;
+            font-style: normal;
+            font-size: 28px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+    <div id="u2" class="u2">
+        <!-- Unnamed () -->
+        <span>South China Agricultural University Library</span>
+    </div>
+
+
+    <form class="form-signin" id="adminForm" action="mylibController.do?user"  autocomplete="off" method="post">
+        <div class="login-wrap">
+            <input type="text" name="personnelno" class="form-control" placeholder="Student ID / Personnel Number" width="200" value="" autofocus>
+            <input type="password" name="password" class="form-control" placeholder="PassWord" value="">
+            <input type="hidden" name="page" class="form-control"  value="user">
+            <input type="hidden" name="sitecode" class="form-control"  value="portal">
+
+            <font color="red">${Data.message!}</font>
+            <button class="btn btn-lg btn-login btn-block btn-mydefault" type="submit">登录</button>
+        </div>
+    </form>
+
+</div>
+
+</body>
+
+</html>

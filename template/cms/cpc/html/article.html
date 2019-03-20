@@ -1,0 +1,157 @@
+<@cms_site sitecode="cpc">
+<!-- saved from url=(0074)http://www.zgjx.gov.cn/index.php?m=content&c=index&a=show&catid=60&id=3390 -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>${tag_site.siteName}</title>
+  <meta name="keywords" content="华南农业大学,华农图书馆,党总支">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link href="template/cms/cpc/html/article_files/bootstrap.css" rel="stylesheet">
+    <link rel="shortcut icon" href="template/cms/cpc/html/index_files/scau50.jpg">
+  <link rel="stylesheet" href="template/cms/cpc/html/article_files/justifiedGallery.css" type="text/css" media="all">
+  <link href="template/cms/cpc/html/article_files/demo.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="/static/js/html5shiv.js"></script>
+  <script src="/static/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row section sTop">
+        <div class="col-md-12" ><img class="img-responsive" src="${tag_site.siteLogo}"></div>
+
+    </div>
+    <div class="clear"></div>
+    <div class="row"><div class="subMenu smint not-fxd" id="main-menu">
+      <div class="inner">
+          <a href="cmsController.do?goPage&page=index&siteCode=cpc" class="subNavBtn col-md-1 extLink">首页</a>
+          <@cms_menu_list menuLevel="cms_level_1" sitecode="cpc" menuStatus="Y">
+
+          <#list tag_menu_list as menu>
+
+              <a <#if menu.type=="04">href="${menu.url}" <#else>href="cmsController.do?goPage&page=menu&siteCode=cpc&menuid=${menu.id}"</#if> class="subNavBtn col-md-1 extLink">${menu.name}</a>
+          </#list>
+      </@cms_menu_list>
+    </div></nav></div>
+    <section class="row public-position" id="publicPosition">
+
+      <div class="col-md-12 pubpos-nav">
+
+          <@cms_menu sitecode="${Data.sitecode}" menuid="${Data.menuid}" >
+          <a href="cmsController.do?goPage&page=index&siteCode=cpc" class="CurrChnlCls">首页</a>
+          <#if tag_menu.menuLevel=="cms_level_2">
+              <@cms_menu_list sitecode="${Data.sitecode}" menuid="${tag_menu.parent.id}" >
+              <#list tag_menu_list as menu>
+                  ><a href="cmsController.do?goPage&page=menu&siteCode=cpc&menuid=${menu.id}">${menu.name}</a>
+
+              </#list>
+              >${tag_menu.name}
+          </@cms_menu_list>
+
+          <#else>
+              >${tag_menu.name}
+              </#if>
+          </@cms_menu>
+      </div>
+
+    </section>
+
+    <section class="row content-show">
+
+      <div class="col-md-12" id="contentShow">
+
+        <div class="newsShow-lf" id="contentShowLf">
+            <@cms_article articleid="${Data.articleid}">
+          <article class="show-body" style="border-top: 1px solid #ccc;">
+
+            <div class="show-hd">
+
+              <h1>${tag_article.title}</h1>
+
+              <div class="titBar">
+
+                <div class="info">
+
+                  <span class="infoCol">
+
+                    <span class="pubTime">  ${tag_article.createDate?string("yyyy-MM-dd HH:mm:ss")} </span>
+
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="show-bd">
+                <#if tag_article.imageHref??>
+                    <div style="text-align: center">
+                    <img src="${tag_article.imageHref}" width="90%">
+                    </div>
+                </#if>
+              <article class="infor-show" id="div_content">
+
+
+                  ${tag_article.content}
+
+
+              </article>
+
+            </div>
+
+          </article>
+            <@cms_log ip="${Data.ip}" logpage="文章:${tag_article.title}" logtype="web" sitecode="${Data.sitecode}" >
+
+        </@cms_log>
+        </@cms_article>
+
+        </div>
+
+        <div class="clear"></div>
+
+        </div>
+
+      </section>
+
+  </div>
+
+  <div class="body_foot">
+
+    <div class="copy">
+
+
+        <div class="copy_txt">
+
+            <p><i class="i_footL">版权所有：华南农业大学图书馆　2016(C)</i> </p>
+
+        </div>
+
+
+        <div class="clear"></div>
+
+    </div>
+
+  </div>
+
+
+
+
+<!-- jQuery  -->
+
+<script src="template/cms/cpc/html/article_files/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+
+<script src="template/cms/cpc/html/article_files/bootstrap.min.js"></script>
+
+<!-- 自动置顶的顶部导航菜单 -->
+
+<script src="template/cms/cpc/html/article_files/jquery.smint.js" type="text/javascript"></script>
+
+<script type="text/javascript">$(document).ready(function(){$('.subMenu').smint({'scrollSpeed' : 1000});});</script></body></html>
+</@cms_site>

@@ -1,0 +1,89 @@
+<#include "header.html">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                       <li><a href="cmsController.do?goPage&page=index&siteCode=enportal">Home</a></li>
+                            <li><a href="esourceController.do?db&page=db&siteCode=enportal">E-resource</a></li>
+                            <li class="active">detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    <!--container start-->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list"></i> Database Info
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal dl-2">
+                            <dt>Name</dt>
+                            <dd>${Data.db.enname}</dd>
+                            <dt style="margin-top: 3px;">Entrance</dt>
+                            <dd>
+                              <#if Data.isIP=="true">
+                                <#list Data.dbUrlList as url>
+                                    <div>
+                                        <label for="txt${url_index+1}">Entrance ${url_index+1}: </label>
+                                        <input name="txt${url_index+1}" value="Testing......" theme="simple" style="width: 200px;"/>
+                                        <#if url.urlstate=="1">
+                                                <a href="${url.url}" target="_blank"> <span class="disabled">[Click to enter]</span>
+                                                </a>
+                                                <#else>
+                                                 <a href="${url.url}" target="_blank">[Click to enter]</a>
+                                        </#if>
+                                        <img src="${url.url}123456" width="0" height="0" onerror="auto('${url.url}')"/>
+                                    </div>
+
+                                </#list>
+                               <#else>
+                                   Your IP:${Data.remoteIP} is not on campus network,Please <a href="esourceController.do?db&page=dbproxy&siteCode=enportal" style="color: #CC6600">Login the off-campus access</a>
+                               </#if>
+                            </dd>
+                            <dt>Resource type</dt>
+                            <dd><@db_detail dbid="${Data.db.id?c}">
+
+                                    <#list tag_dbrestypelist as typelist>
+                                        ${typelist.updateName}  &nbsp
+                                    </#list>
+                            </@db_detail>
+                            </dd>
+                            <dt>Description</dt>
+                            <dd>${Data.db.endetailinfo}</dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <@cms_log ip="${Data.ip}" logpage="${Data.db.id?c}" logtype="db" sitecode="${Data.sitecode}" >
+
+    </@cms_log>
+    <!--container end-->
+    <script type="text/javascript">
+        var tim=1;
+        var b=1;
+        setInterval("tim++",100);
+        function auto(url){
+            if(tim>200)
+            {
+                $("[name=txt"+b+"]").val("Test connection timeout");
+            }
+            else
+            {
+                $("[name=txt"+b+"]").val("Test connection "+tim/10+" 秒");
+            }
+            b++;
+        }
+    </script>
+<#include "footer.html">

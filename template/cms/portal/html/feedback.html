@@ -1,0 +1,135 @@
+<#include "header.html">
+    <@cms_site sitecode="portal">
+
+    <!-- BEGIN BREADCRUMBS -->
+    <@cms_feedback sitecode="${Data.sitecode}" id="${Data.id}" rows="8" commentcheck="${tag_site.commentCheck}" p="${Data.p}">
+
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumbs">
+                <div class="col-lg-12 col-sm-12">
+                    <ol class="breadcrumb text-menu">
+                        <li><a href="cmsController.do?goPage&page=index&siteCode=portal">首页</a>
+                        </li>
+                         <li >
+                             <a href="cmsController.do?goPage&page=feedbacklist&siteCode=portal">留言板</a>
+                        </li>
+                        <li class="active">
+                            标题：${tag_feedback.title}
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--container start-->
+
+    <div class="container" style="padding-top: 20px;">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="panel panel-primary" style="border-color:#20688b;">
+                        <div class="panel-heading" style=" background-color:#20688b;border-color:#20688b;">
+                            <h3 class="panel-title">
+                                <i class="icon-comments"></i> 标题：${tag_feedback.title}
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table" style="border: solid 1px #ddd; height: 20px;">
+
+                                    <#list tag_feedback_list as feedbacklist>
+                                        <tr>
+                                            <td style="text-align: center;width: 20%;border-bottom: 0px;border-right: 1px solid #ddd;border-top: 1px solid #ddd;">发布者：${feedbacklist.postusername}</td>
+                                            <td ><font color="red"><#if feedbacklist_index ==0>[楼主]<#else>[${feedbacklist_index+1}]</#if></font> 发布时间：${feedbacklist.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;width: 20%;border-bottom: 0px;border-right: 1px solid #ddd;"></td>
+                                            <td style="height: 80px;" >${feedbacklist.content}</td>
+
+                                        </tr>
+
+                                    </#list>
+
+                                </table>
+
+                            </div>
+                            <div class="text-center">
+                                <!--分页-->
+                                ${page.pagehtml}
+                            </div>
+                            <!--判断该站点是否允许匿名评论-->
+
+                            <#if tag_site.comment=="Y">
+                                <div class="text-center">
+                                    <form action="cmsController.do?feedbacksave" method="post">
+                                        <table align="center">
+                                            <input id="postuser" name="postuser" type="hidden" value="${Data.ip}">
+                                            <#if session.getAttribute("personnelno")?exists>
+                                                <input id="postusername" name="postusername" type="hidden" value="${session.getAttribute('personnelno')}">
+                                                <#else>
+                                                    <input id="postusername" name="postusername" type="hidden" value="匿名网友">
+                                            </#if>
+                                            <input id="strBackUrl" name="strBackUrl" type="hidden" value="${Data.strBackUrl}">
+                                            <input id="parentid" name="parentid" type="hidden" value="${Data.id}">
+                                            <input id="hits" name="hits" type="hidden" value="0">
+                                            <input id="replys" name="replys" type="hidden" value="0">
+                                            <input id="keeptop" name="keeptop" type="hidden" value="N">
+                                            <input id="adminreply" name="adminreply" type="hidden" value="N">
+                                            <input id="checked" name="checked"  type="hidden" value="N">
+                                            <input id="sitecode" name="sitecode" type="hidden" value="${Data.sitecode}">
+                                            <tr><td>回复内容</td><td><textarea cols="100" class="form-control"  rows="3" name="content"></textarea></td></tr>
+                                            <tr><td colspan="2"><input type="submit" class="btn btn-success" value="回复" ></td></tr>
+                                        </table>
+                                    </form>
+                                </div>
+
+                                <#else>
+                                    <#if session.getAttribute("personnelno")?exists>
+                                        <div class="text-center">
+                                            <form action="cmsController.do?feedbacksave" method="post">
+                                                <table align="center">
+                                                    <input id="postuser" name="postuser" type="hidden" value="${Data.ip}">
+                                                    <#if session.getAttribute("personnelno")?exists>
+                                                        <input id="postusername" name="postusername" type="hidden" value="${session.getAttribute('personnelno')}">
+                                                        <#else>
+                                                            <input id="postusername" name="postusername" type="hidden" value="匿名网友">
+                                                    </#if>
+                                                    <input id="strBackUrl" name="strBackUrl" type="hidden" value="${Data.strBackUrl}">
+                                                    <input id="hits" name="hits" type="hidden" value="0">
+                                                    <input id="parentid" name="parentid" type="hidden" value="${Data.id}">
+                                                    <input id="replys" name="replys" type="hidden" value="0">
+                                                    <input id="keeptop" name="keeptop" type="hidden" value="N">
+                                                    <input id="adminreply" name="adminreply" type="hidden" value="N">
+                                                    <input id="checked" name="checked" type="hidden" value="N">
+                                                    <input id="sitecode" name="sitecode" type="hidden" value="${Data.sitecode}">
+                                                    <tr><td>回复内容</td><td><textarea cols="100" class="form-control"  rows="3" name="content"></textarea></td></tr>
+                                                    <tr><td colspan="2"><input type="submit" class="btn btn-success" value="发表回复" ></td></tr>
+                                                </table>
+                                            </form>
+                                        </div>
+                                        <#else>
+                                            <div style="text-align: center;padding-top: 20px;">您需要登录后才可以回复评论, <a href="mylibController.do?user&page=feedback&siteCode=portal&id=${Data.id}">点击此处登录</a></div>
+                                    </#if>
+
+                            </#if>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+
+    <@cms_log ip="${Data.ip}" logpage="留言板" logtype="web" sitecode="${Data.sitecode}" >
+
+</@cms_log>
+
+</@cms_feedback>
+    <!--container end-->
+<script src="template/cms/portal/js/jquery.pin.min.js"></script>
+<!--container end-->
+<script type="text/javascript">
+    $("#sidebarPin").pin({containerSelector: "#maincontent",minWidth: 970});
+</script>
+</@cms_site>
+<#include "footer.html">
